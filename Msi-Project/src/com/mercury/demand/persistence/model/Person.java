@@ -9,9 +9,7 @@ import javax.persistence.Table;
 @Table(name="SS_PERSON")
 public class Person implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 2748948831285204760L;
 	private int personId;
 	private String username;

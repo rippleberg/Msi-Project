@@ -32,5 +32,4 @@ public class LoginDaoImpl implements LoginDao {
 		Criteria ct = this.getCurrentSession().createCriteria(Login.class);
 		return (Login)ct.add(Restrictions.eq("username", username)).uniqueResult();
 	}
-
 }
