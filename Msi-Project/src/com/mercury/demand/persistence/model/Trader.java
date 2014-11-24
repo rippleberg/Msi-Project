@@ -1,7 +1,9 @@
 package com.mercury.demand.persistence.model;
 
 //import javax.persistence.Column;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 //import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -53,6 +55,8 @@ public class Trader implements java.io.Serializable {
 		this.enabled = enabled;
 	}
 
+	 @Id
+	 @Column(name="lid", nullable = false)
 	public int getLid() {
 		return lid;
 	}
