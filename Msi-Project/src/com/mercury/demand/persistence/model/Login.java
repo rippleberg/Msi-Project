@@ -18,7 +18,7 @@ public class Login implements java.io.Serializable {
 	private String username;
 	private String password;
 	private String authority;
-	private boolean enabled;
+	
     
 	// Constructors
 	/** default constructor */
@@ -58,12 +58,6 @@ public class Login implements java.io.Serializable {
 		this.authority = authority;
 	}
 	
-	@Column
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+	
   
 }

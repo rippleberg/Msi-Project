@@ -1,8 +1,10 @@
 package com.mercury.demand.persistence.model;
 
 //import javax.persistence.Column;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-//\import javax.persistence.Id;
+import javax.persistence.Id;
+//import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +27,7 @@ public class Trader implements java.io.Serializable {
 	private int balance;
 	private char active;
 	private Login login;
+	private boolean enabled;
 	// Constructors
 	/** default constructor */
     public Trader() {}
@@ -44,6 +47,16 @@ public class Trader implements java.io.Serializable {
 		this.active=active;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	 @Id
+	 @Column(name="lid", nullable = false)
 	public int getLid() {
 		return lid;
 	}
