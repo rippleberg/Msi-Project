@@ -18,6 +18,7 @@ public class Trans implements Serializable{
 	private static final long serialVersionUID = -796868397858674727L;
 	private int tid;
 	private int lid;
+	private String sid;
 	private Date t_time;
 	private int price;
 	private int quantity;
@@ -25,7 +26,8 @@ public class Trans implements Serializable{
 	private String t_status;
 	
 	public Trans() {}
-	public Trans(Date t_time, int price, int quantity, String t_type, String t_status) {
+	public Trans(String sid, Date t_time, int price, int quantity, String t_type, String t_status) {
+		this.sid = sid;
 		this.t_time = t_time;
 		this.price = price;
 		this.quantity = quantity;
@@ -92,5 +94,12 @@ public class Trans implements Serializable{
 		this.lid = lid;
 	}
 	
-	
+	@Column(name="SID")
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+
 }

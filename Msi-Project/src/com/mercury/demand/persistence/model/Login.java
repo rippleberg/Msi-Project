@@ -1,5 +1,6 @@
 package com.mercury.demand.persistence.model;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -24,21 +25,19 @@ public class Login implements Serializable{
 	private String authority;
 	private Trader trader;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	public Trader getTrader() {
-		return trader;
-	}
-	public void setTrader(Trader trader) {
-		this.trader = trader;
-	}
+	
 	public Login() {}
 	public Login(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
+	public Login(String username, String password, String authority) {
+		this.username = username;
+		this.password = password;
+		this.authority = authority;
+	}
 	@Id
-	@Column(name="ID", unique=true, nullable=false)
+	@Column(name="LID", unique=true, nullable=false)
 	@GeneratedValue(generator="gen")
 	@GenericGenerator(name="gen", strategy="foreign", parameters=@Parameter(name="property", value="trader"))
 	public int getLid() {
@@ -63,11 +62,20 @@ public class Login implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Column(name="AUTHORTIY", nullable=false)
+	@Column(name="AUTHORITY", nullable=false)
 	public String getAuthority() {
 		return authority;
 	}
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+	
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	public Trader getTrader() {
+		return trader;
+	}
+	public void setTrader(Trader trader) {
+		this.trader = trader;
 	}
 }

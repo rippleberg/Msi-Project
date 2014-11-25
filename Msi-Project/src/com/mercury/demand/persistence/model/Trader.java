@@ -30,25 +30,10 @@ public class Trader implements Serializable{
 	private int zipcode;
 	private int balance;
 	private String active;
-	
 	private Login login;
-	
-	@OneToMany(mappedBy="lid")
-	@Cascade(CascadeType.SAVE_UPDATE)
 	private Set<Creditcard> cards;
-	
-	@OneToMany(mappedBy="lid")
-	@Cascade(CascadeType.SAVE_UPDATE)
 	private Set<Trans> trans;
 	
-	@OneToOne(mappedBy="trader")
-	@Cascade(CascadeType.ALL)
-	public Login getLogin() {
-		return login;
-	}
-	public void setLogin(Login login) {
-		this.login = login;
-	}
 	public Trader() {
 		cards = new HashSet<Creditcard>();
 		trans = new HashSet<Trans>();
@@ -140,12 +125,18 @@ public class Trader implements Serializable{
 	public void setActive(String active) {
 		this.active = active;
 	}
+	
+	@OneToMany(mappedBy="lid")
+	@Cascade(CascadeType.SAVE_UPDATE)
 	public Set<Creditcard> getCards() {
 		return cards;
 	}
 	public void setCards(Set<Creditcard> cards) {
 		this.cards = cards;
 	}
+	
+	@OneToMany(mappedBy="lid")
+	@Cascade(CascadeType.SAVE_UPDATE)
 	public Set<Trans> getTrans() {
 		return trans;
 	}
@@ -168,5 +159,13 @@ public class Trader implements Serializable{
 		trans.remove(tran);
 	}
 	
+	@OneToOne(mappedBy="trader")
+	@Cascade(CascadeType.ALL)
+	public Login getLogin() {
+		return login;
+	}
+	public void setLogin(Login login) {
+		this.login = login;
+	}
 	
 }
