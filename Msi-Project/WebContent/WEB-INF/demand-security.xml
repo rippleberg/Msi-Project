@@ -17,6 +17,8 @@
 
     <sec:http use-expressions="true">
    		<sec:intercept-url pattern="/content/**" access="isAuthenticated()" />    	
+   		<sec:intercept-url pattern="/admin/**" access="hasRole('A')" />  	
+   		<sec:intercept-url pattern="/content/**" access="hasRole('R')" />  	
         <sec:intercept-url pattern="/**" access="permitAll" />
         
         <sec:form-login 
