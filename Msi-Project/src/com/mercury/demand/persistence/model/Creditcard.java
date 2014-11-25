@@ -1,43 +1,36 @@
 package com.mercury.demand.persistence.model;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="creditcard")
-public class Creditcard implements java.io.Serializable {
-	
-	private static final long serialVersionUID = 2748948831285204760L;
+public class Creditcard {
 	private int cid;
-	private int lid;
-	private int card_name;
+	private String card_holder;
+	private String card_number;
 	private String expire_date;
 	private int code;
-	private String card_holder;
 	
-	
-	 @Id
-	 @Column(name="cid", nullable = false)
+	public Creditcard() {}
+	public Creditcard(String card_holder, String card_number, String expire_date, int code) {
+		this.card_holder = card_holder;
+		this.card_number = card_number;
+		this.expire_date = expire_date;
+		this.code = code;
+	}
 	public int getCid() {
 		return cid;
 	}
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-	public int getLid() {
-		return lid;
+	public String getCard_holder() {
+		return card_holder;
 	}
-	public void setLid(int lid) {
-		this.lid = lid;
+	public void setCard_holder(String card_holder) {
+		this.card_holder = card_holder;
 	}
-	public int getCard_name() {
-		return card_name;
+	public String getCard_number() {
+		return card_number;
 	}
-	public void setCard_name(int card_name) {
-		this.card_name = card_name;
+	public void setCard_number(String card_number) {
+		this.card_number = card_number;
 	}
 	public String getExpire_date() {
 		return expire_date;
@@ -51,14 +44,4 @@ public class Creditcard implements java.io.Serializable {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public String getCard_holder() {
-		return card_holder;
-	}
-	public void setCard_holder(String card_holder) {
-		this.card_holder = card_holder;
-	}
-	
-	
-	
-
 }
