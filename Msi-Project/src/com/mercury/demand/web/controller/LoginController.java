@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value="/security/login.htm", method = RequestMethod.GET)
+	@RequestMapping(value="/login.htm", method = RequestMethod.GET)
 	public String login(ModelMap model) {
 		return "security/login";
 	}
@@ -20,5 +20,10 @@ public class LoginController {
 		mav.setViewName("content/hello");
 		mav.addObject("title", "Hello, welcome to Customized Spring Security");
 		return mav;
+	}
+	
+	@RequestMapping(value="/index.htm", method = RequestMethod.GET)
+	public String index(){
+		return "security/index";
 	}
 }
