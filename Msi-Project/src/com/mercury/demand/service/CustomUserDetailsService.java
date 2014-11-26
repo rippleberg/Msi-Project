@@ -14,21 +14,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mercury.demand.persistence.dao.PersonDao;
-import com.mercury.demand.persistence.model.Person;
+import com.mercury.demand.persistence.dao.*;
+import com.mercury.demand.persistence.model.*;
 
 @Service
 @Transactional(readOnly = true)
 public class CustomUserDetailsService  implements UserDetailsService{
 	private Logger logger = Logger.getLogger(this.getClass());
 	@Autowired
-	private PersonDao pd;
+	private LoginDao ld;
 		
-	public PersonDao getPd() {
-		return pd;
+	public LoginDao getPd() {
+		return ld;
 	}
-	public void setPd(PersonDao pd) {
-		this.pd = pd;
+	public void setPd(LoginDao ld) {
+		this.ld = ld;
 	}
 
 	@Override
@@ -36,12 +36,12 @@ public class CustomUserDetailsService  implements UserDetailsService{
 		// TODO Auto-generated method stub
 		UserDetails user = null;  
 		try {
-			Person person = pd.getPersonByUsername(username);
+			Login login = ld.getLoginByUsername(username);
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			authorities.add(new SimpleGrantedAuthority(person.getAuthority()));
+			authorities.add(new SimpleGrantedAuthority(login.getAuthority()));
 			user = new User(
-					person.getUsername(),
-					person.getPassword(),
+					login.getUsername(),
+					login.getPassword(),
 					true,
 					true,
 					true,

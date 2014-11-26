@@ -25,7 +25,7 @@ public final class RsaGenerator {
 		init();
 	}
 	
-	public void init(){
+	public synchronized void init(){
 		try{
 			KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
 			kpg.initialize(1024);

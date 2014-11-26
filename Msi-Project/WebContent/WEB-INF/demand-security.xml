@@ -17,17 +17,17 @@
 
     <sec:http use-expressions="true">
    		<sec:intercept-url pattern="/content/**" access="isAuthenticated()" />    	
-   		<sec:intercept-url pattern="/admin/**" access="hasRole('A')" />  	
-   		<sec:intercept-url pattern="/content/**" access="hasRole('R')" />  	
+   		<sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')" />  	
+   		<sec:intercept-url pattern="/app/**" access="hasRole('ROLE_ADMIN')" />  	
         <sec:intercept-url pattern="/**" access="permitAll" />
         
         <sec:form-login 
-        	login-page="/security/login.htm" 
+        	login-page="/login.htm" 
         	authentication-success-handler-ref="postSuccessAuthHandler"
-        	authentication-failure-url="/security/login.htm?login_error=1" 
+        	authentication-failure-url="/login.htm?login_error=1" 
         />
 
-        <sec:logout logout-success-url="/security/login.htm" delete-cookies="JSESSIONID"/>
+        <sec:logout logout-success-url="/login.htm" delete-cookies="JSESSIONID"/>
        
         <!-- Uncomment to limit the number of sessions a user can have (requires listener)
         <sec:session-management invalid-session-url="/timeout.htm">
@@ -47,7 +47,7 @@
     </sec:authentication-manager>
    
 	<bean id="postSuccessAuthHandler" class="com.mercury.demand.security.PostSuccessfulAuthenticationHandler">
-	    <property name="defaultTargetUrl" value="/content/main.htm" />
+	    <property name="defaultTargetUrl" value="/app/main.htm" />
 	    <property name="alwaysUseDefaultTargetUrl" value="true" />
 	</bean>
 
