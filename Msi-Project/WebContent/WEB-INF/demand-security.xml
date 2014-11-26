@@ -16,14 +16,13 @@
     <sec:http pattern="/security/loggedout.htm" security="none" />
 
     <sec:http use-expressions="true">
-   		<sec:intercept-url pattern="/content/**" access="isAuthenticated()" />    	
    		<sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')" />  	
    		<sec:intercept-url pattern="/app/**" access="hasRole('ROLE_ADMIN')" />  	
         <sec:intercept-url pattern="/**" access="permitAll" />
         
         <sec:form-login 
         	login-page="/login.htm" 
-        	authentication-success-handler-ref="postSuccessAuthHandler"
+        	authentication-success-handler-ref="loginSuccessAuthHandler"
         	authentication-failure-url="/login.htm?login_error=1" 
         />
 
@@ -45,12 +44,8 @@
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider user-service-ref="customUserDetailsService" />
     </sec:authentication-manager>
-   
-	<bean id="postSuccessAuthHandler" class="com.mercury.demand.security.PostSuccessfulAuthenticationHandler">
-	    <property name="defaultTargetUrl" value="/app/main.htm" />
-	    <property name="alwaysUseDefaultTargetUrl" value="true" />
-	</bean>
 
 	<bean id="customUserDetailsService" class="com.mercury.demand.service.CustomUserDetailsService"/>
+	<bean id="loginSuccessAuthHandler" class="com.mercury.demand.security.LoginSuccessAuthenticationHandler"/>
 </beans>
 

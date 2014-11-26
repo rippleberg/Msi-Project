@@ -24,10 +24,10 @@ public class CustomUserDetailsService  implements UserDetailsService{
 	@Autowired
 	private LoginDao ld;
 		
-	public LoginDao getPd() {
+	public LoginDao getLd() {
 		return ld;
 	}
-	public void setPd(LoginDao ld) {
+	public void setLd(LoginDao ld) {
 		this.ld = ld;
 	}
 
