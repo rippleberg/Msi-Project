@@ -52,5 +52,11 @@
     <bean id="userDao" parent="genericDao" scope="prototype">
 		<constructor-arg value="com.mercury.demand.persistence.dao.UserDAO" />
     </bean>  
+    <bean id="loginDao"  class="com.mercury.common.db.HibernateDao" scope="prototype">
+    	<constructor-arg value="com.mercury.demand.persistence.model.Login" />
+    </bean>  
+    <bean id="traderDao"  class="com.mercury.common.db.HibernateDao" scope="prototype">
+    	<constructor-arg value="com.mercury.demand.persistence.model.Trader" />
+    </bean>
     
 </beans>

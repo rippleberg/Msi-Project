@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mercury.common.db.Dao;
+import com.mercury.common.db.HibernateDao;
 import com.mercury.demand.persistence.model.*;
 import com.mercury.demand.service.RegisterService;
 
@@ -71,5 +73,13 @@ public class SecurityController {
 		trader.setHome_state(home_state);
 		rs.register(login, trader);
 		return "security/index";
+	}
+	
+	@RequestMapping("/test.htm")
+	public String test(){
+		Login login = new Login("test", "test");
+		Dao<Login, Integer> loginDao = new HibernateDao<Login, Integer>(Login.class);
+		loginDao.save(login);
+		return "/security/index";
 	}
 }
