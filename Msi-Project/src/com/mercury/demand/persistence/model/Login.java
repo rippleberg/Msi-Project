@@ -30,6 +30,7 @@ public class Login implements Serializable{
 	public Login(String username, String password) {
 		this.username = username;
 		this.password = password;
+		authority="ROLE_USER";
 	}
 	public Login(String username, String password, String authority) {
 		this.username = username;
