@@ -20,7 +20,7 @@ public class Trans implements Serializable{
 	private int lid;
 	private String sid;
 	private Date t_time;
-	private int price;
+	private double price;
 	private int quantity;
 	private String t_type;
 	private String t_status;
@@ -55,10 +55,10 @@ public class Trans implements Serializable{
 	}
 	
 	@Column(name="PRICE", nullable=false)
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	

@@ -23,13 +23,13 @@ public class Trader implements Serializable{
 	private int lid;
 	private String first_name;
 	private String last_name;
-	private int phone;
+	private String phone;
 	private String email;
 	private String address;
 	private String home_state;
 	private String city;
-	private int zipcode;
-	private int balance;
+	private String zipcode;
+	private double balance;
 	private String active;
 	private Login login;
 	private Set<Creditcard> cards;
@@ -72,10 +72,10 @@ public class Trader implements Serializable{
 	}
 	
 	@Column(name="PHONE")
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	
@@ -110,18 +110,18 @@ public class Trader implements Serializable{
 		this.city = city;
 	}
 	@Column(name="ZIPCODE")
-	public int getZipcode() {
+	public String getZipcode() {
 		return zipcode;
 	}
-	public void setZipcode(int zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 	
 	@Column(name="BALANCE")
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	
