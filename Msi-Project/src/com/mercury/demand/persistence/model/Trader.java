@@ -27,6 +27,7 @@ public class Trader implements Serializable{
 	private String email;
 	private String address;
 	private String home_state;
+	private String city;
 	private int zipcode;
 	private int balance;
 	private String active;
@@ -101,7 +102,13 @@ public class Trader implements Serializable{
 	public void setHome_state(String home_state) {
 		this.home_state = home_state;
 	}
-	
+	@Column(name="CITY")
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	@Column(name="ZIPCODE")
 	public int getZipcode() {
 		return zipcode;
