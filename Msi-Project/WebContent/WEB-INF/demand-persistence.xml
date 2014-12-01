@@ -58,5 +58,10 @@
     <bean id="traderDao"  class="com.mercury.common.db.HibernateDao" scope="prototype">
     	<constructor-arg value="com.mercury.demand.persistence.model.Trader" />
     </bean>
-    
+    <bean id="transDao" class="com.mercury.common.db.HibernateDao" scope="prototype">
+    	<constructor-arg value="com.mercury.demand.persistence.model.Trans" />
+    </bean>
+    <bean id="creditcardDao" class="com.mercury.common.db.HibernateDao" scope="prototype">
+    	<constructor-arg value="com.mercury.demand.persistence.model.Creditcard" />
+    </bean>
 </beans>
