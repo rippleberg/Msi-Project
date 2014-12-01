@@ -19,13 +19,13 @@ public class Creditcard implements Serializable{
 	private int cid;
 	private int lid;
 	private String card_holder;
-	private String card_number;
+	private byte[] card_number;
 	private int expire_month;
 	private int expire_year;
 	private int code;
 	
 	public Creditcard() {}
-	public Creditcard(String card_holder, String card_number, int expire_month, int expire_year, int code) {
+	public Creditcard(String card_holder, byte[] card_number, int expire_month, int expire_year, int code) {
 		this.card_holder = card_holder;
 		this.card_number = card_number;
 		this.expire_month = expire_month;
@@ -53,10 +53,10 @@ public class Creditcard implements Serializable{
 	}
 	
 	@Column(name="CARD_NUMBER", nullable=false)
-	public String getCard_number() {
+	public byte[] getCard_number() {
 		return card_number;
 	}
-	public void setCard_number(String card_number) {
+	public void setCard_number(byte[] card_number) {
 		this.card_number = card_number;
 	}
 	
