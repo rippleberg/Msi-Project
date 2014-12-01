@@ -36,9 +36,7 @@ public class CustomUserDetailsService  implements UserDetailsService{
 		// TODO Auto-generated method stub
 		UserDetails user = null;  
 		try {
-			System.out.println("start!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			Login login = ld.getLoginByUsername(username);
-			System.out.println("username: " + login.getUsername() + " \npassword:" + login.getPassword());
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority(login.getAuthority()));
 			user = new User(

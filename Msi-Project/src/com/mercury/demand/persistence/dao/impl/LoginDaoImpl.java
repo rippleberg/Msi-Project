@@ -30,11 +30,6 @@ public class LoginDaoImpl implements LoginDao {
 	public Login getLoginByUsername(String username) {
 		// TODO Auto-generated method stub
 		Criteria ct = this.getCurrentSession().createCriteria(Login.class);
-		System.out.println("LoginDao start!!!!!!!!!!!!!!!!!!!!!!!!!");
-		Login res = (Login)ct.add(Restrictions.eq("username", username)).uniqueResult();
-		System.out.println("-==--==-=-=-=");
-		System.out.println(res);
-		System.out.println("username: " + res.getUsername() + " \npassword:" + res.getPassword());
-		return res;
+		return (Login)ct.add(Restrictions.eq("username", username)).uniqueResult();
 	}
 }
