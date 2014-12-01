@@ -59,27 +59,20 @@ public class SecurityController {
 		Login login = new Login(username, password);
 		String firstname = request.getParameter("r_firstname");
 		String lastname = request.getParameter("r_lastname");
-		int phone = Integer.parseInt(request.getParameter("r_phone"));
+		String phone = request.getParameter("r_phone");
 		String email = request.getParameter("r_email");
 		String address = request.getParameter("r_address");
 		String city = request.getParameter("r_city");
 		String home_state = request.getParameter("r_state");
-		int zipcode = Integer.parseInt(request.getParameter("r_zipcode"));
+		String zipcode = request.getParameter("r_zipcode");
 		Trader trader = new Trader(firstname, lastname, email);
 		trader.setPhone(phone);
 		trader.setAddress(address);
 		trader.setZipcode(zipcode);
-		//trader.setCity(city);
+		trader.setCity(city);
 		trader.setHome_state(home_state);
 		rs.register(login, trader);
-		return "security/index";
+		return "security/login";
 	}
 	
-	@RequestMapping("/test.htm")
-	public String test(){
-		Login login = new Login("test", "test");
-		Dao<Login, Integer> loginDao = new HibernateDao<Login, Integer>(Login.class);
-		loginDao.save(login);
-		return "/security/index";
-	}
 }

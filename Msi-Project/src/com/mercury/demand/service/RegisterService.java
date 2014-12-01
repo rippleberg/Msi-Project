@@ -21,10 +21,10 @@ public class RegisterService {
 	@Qualifier("traderDao")
 	Dao<Trader, Integer> traderDao;
 	
-	//Dao<Trader> td;
-	
 	public void register(Login login, Trader trader){
-		loginDao.save(login);
+		login.setTrader(trader);
+		trader.setLogin(login);
 		traderDao.save(trader);
+		loginDao.save(login);
 	}
 }

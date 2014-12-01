@@ -16,7 +16,7 @@ public class LoginSuccessAuthenticationHandler extends SavedRequestAwareAuthenti
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws ServletException, IOException {
-		String userTargetUrl = "/content/main.htm";
+		String userTargetUrl = "/app/dashboard.htm";
 		String adminTargetUrl = "/admin/admin.htm";
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 		if(roles.contains("ROLE_ADMIN")){

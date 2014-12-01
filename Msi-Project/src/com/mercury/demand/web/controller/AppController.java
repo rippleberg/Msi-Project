@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/app")
 public class AppController {
 
-	@RequestMapping("/config")
+	@RequestMapping("/config.htm")
 	public ModelAndView config() {
 		return null;
 	}
 	
-	@RequestMapping("/dashboard")
+	@RequestMapping("/dashboard.htm")
 	public ModelAndView dashboard(){
 		return null;
 	}
