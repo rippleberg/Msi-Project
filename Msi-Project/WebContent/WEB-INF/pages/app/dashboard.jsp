@@ -7,6 +7,7 @@
 <title>Dashboard</title>
 </head>
 <body>
-<h1>Hello </h1>>
+<h1>Hello </h1>
+<a href="<c:url value='/j_spring_security_logout'/>">Logout</a>
 </body>
 </html>

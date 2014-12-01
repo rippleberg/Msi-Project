@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>This is admin page.</h1>
+<a href="<c:url value='/j_spring_security_logout'/>">Logout</a>
 </body>
 </html>
