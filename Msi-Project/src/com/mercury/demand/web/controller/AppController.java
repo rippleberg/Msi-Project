@@ -1,5 +1,7 @@
 package com.mercury.demand.web.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mercury.demand.persistence.model.Creditcard;
 import com.mercury.demand.persistence.model.Trader;
+import com.mercury.demand.service.ConfigService;
 import com.mercury.demand.service.CreditcardService;
 import com.mercury.demand.service.TransactionService;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +27,17 @@ import com.mercury.demand.service.YahooFinance;
 @Controller
 @RequestMapping("/app")
 public class AppController {
+
+	@Autowired
+	private ConfigService cfs;
+	
+	public ConfigService getCfs() {
+		return cfs;
+	}
+
+	public void setCfs(ConfigService cfs) {
+		this.cfs = cfs;
+	}
 
 	@Autowired
 	private CreditcardService cs;
@@ -59,8 +74,30 @@ public class AppController {
 	}
 	
 	@RequestMapping("/config.htm")
-	public ModelAndView config() {
-		return null;
+	public ModelAndView config(Principal principal) {
+		Trader trader = cfs.getCurrentTrader(principal.getName());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("app/config");
+		mav.addObject("name", principal.getName());
+		mav.addObject("trader", trader);
+		return mav;
+	}
+	
+	@RequestMapping(value="/config.htm", method = RequestMethod.POST)
+	public ModelAndView makeConfig(HttpServletRequest request, Principal principal){
+		String username = principal.getName();
+		String password = request.getParameter("c_password");
+		String firstname = request.getParameter("c_firstname");
+		String lastname = request.getParameter("c_lastname");
+		String phone = request.getParameter("c_phone");
+		String email = request.getParameter("c_email");
+		String address = request.getParameter("c_address");
+		String city = request.getParameter("c_city");
+		String state = request.getParameter("c_state");
+		String zipcode = request.getParameter("c_zipcode");
+		cfs.config(username, password, firstname, lastname, phone, 
+				email, address, city, state, zipcode);
+		return new ModelAndView("redirect:" + "config.htm");
 	}
 	
 	@RequestMapping("/dashboard.htm")

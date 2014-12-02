@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -72,7 +71,7 @@ public class Login implements Serializable{
 		this.authority = authority;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@PrimaryKeyJoinColumn
 	public Trader getTrader() {
 		return trader;
