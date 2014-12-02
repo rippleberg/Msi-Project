@@ -19,6 +19,7 @@ public class RunMeJob extends QuartzJobBean {
 			throws JobExecutionException {
 		// TODO Auto-generated method stub
 		runMeTask.printMe();
+		runMeTask.saveToDatabase();
 	}
 
 }
