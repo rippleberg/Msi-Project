@@ -11,4 +11,14 @@ public class AdminController {
 	public String admin(){
 		return "admin/admin";
 	}
+	
+	@RequestMapping("/management.htm")
+	public String management(){
+		return "admin/management";
+	}
+	
+	@RequestMapping("/deactive/{lid}.htm")
+	public String deactive(){
+		return "admin/management";
+	}
 }

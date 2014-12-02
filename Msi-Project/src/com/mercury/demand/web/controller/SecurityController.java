@@ -3,6 +3,7 @@ package com.mercury.demand.web.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mercury.common.db.Dao;
 import com.mercury.common.db.HibernateDao;
+import com.mercury.demand.mail.MailAppBean;
 import com.mercury.demand.persistence.model.*;
 import com.mercury.demand.service.RegisterService;
 
@@ -19,6 +21,9 @@ public class SecurityController {
 
 	@Autowired
 	private RegisterService rs;
+	@Autowired
+	@Qualifier("mailApp")
+	private MailAppBean mailApp;
 	
 	public RegisterService getRs() {
 		return rs;
@@ -72,6 +77,8 @@ public class SecurityController {
 		trader.setCity(city);
 		trader.setHome_state(home_state);
 		rs.register(login, trader);
+		mailApp.getSimpleMailMessage().setTo(email);
+		mailApp.sendMail(lastname, "This is a welcome email");
 		return "security/login";
 	}
 	
