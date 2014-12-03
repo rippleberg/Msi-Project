@@ -86,7 +86,6 @@ public class AppController {
 	@RequestMapping(value="/config.htm", method = RequestMethod.POST)
 	public ModelAndView makeConfig(HttpServletRequest request, Principal principal){
 		String username = principal.getName();
-		String password = request.getParameter("c_password");
 		String firstname = request.getParameter("c_firstname");
 		String lastname = request.getParameter("c_lastname");
 		String phone = request.getParameter("c_phone");
@@ -95,8 +94,8 @@ public class AppController {
 		String city = request.getParameter("c_city");
 		String state = request.getParameter("c_state");
 		String zipcode = request.getParameter("c_zipcode");
-		cfs.config(username, password, firstname, lastname, phone, 
-				email, address, city, state, zipcode);
+		/*cfs.config(username, password, firstname, lastname, phone, 
+				email, address, city, state, zipcode);*/
 		return new ModelAndView("redirect:" + "config.htm");
 	}
 	

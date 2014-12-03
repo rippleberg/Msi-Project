@@ -37,6 +37,7 @@ public class CustomUserDetailsService  implements UserDetailsService{
 		UserDetails user = null;  
 		try {
 			Login login = ld.getLoginByUsername(username);
+			if(login.getTrader().getActive().equals("0")) throw new Exception("disactive");
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			authorities.add(new SimpleGrantedAuthority(login.getAuthority()));
 			user = new User(

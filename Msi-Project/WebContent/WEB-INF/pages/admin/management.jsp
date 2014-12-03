@@ -10,15 +10,23 @@
 <body>
 <table border="1">
 	<tr>
-		<th>Name</th>
-		<th>Age</th>
+		<th>firstname</th>
+		<th>lastname</th>
+		<th>email</th>
+		<th>username</th>
+		<th>config</th>
+		<th>active</th>
+		<th>active</th>
 	</tr>
-	<c:forEach var="user" items="${traderInfo.traders}">
+	<c:forEach var="trader" items="${traderInfo.traders}">
 		<tr>
 			<td>${trader.first_name}</td>
 			<td>${trader.last_name}</td>
 			<td>${trader.email}</td>
 			<td>${trader.login.username}</td>
+			<td><a href="config/${trader.lid}.htm">config</a></td>
+			<td>${trader.active }</td>
+			<td><a href="active/${trader.lid}.htm">active</a></td>
 		</tr>
 	</c:forEach>
 </table>

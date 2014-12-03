@@ -22,4 +22,12 @@ public class AdminManageService {
 		res.setTraders(traderDao.findAll());
 		return res;
 	}
+	
+	public void active(int lid){
+		Trader trader = traderDao.findById(lid);
+		if(trader.getActive().equals("1"))
+			trader.setActive("0");
+		else trader.setActive("1");
+		traderDao.save(trader);
+	}
 }
