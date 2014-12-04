@@ -33,10 +33,10 @@ public class SecurityController {
 		this.rs = rs;
 	}
 	
-	@RequestMapping("/login.htm")
+	/*@RequestMapping("/login.htm")
 	public String login(ModelMap model) {
 		return "security/login";
-	}
+	}*/
 	
 	/*@RequestMapping(value="/content/main.htm", method = RequestMethod.GET)
 	public ModelAndView mainPage() {	
@@ -52,10 +52,10 @@ public class SecurityController {
 		return "security/index";
 	}
 	
-	@RequestMapping("/register.htm")
+	/*@RequestMapping("/register.htm")
 	public String register(){
 		return "security/register";
-	}
+	}*/
 	
 	@RequestMapping(value="/register.htm", method = RequestMethod.POST)
 	public String enroll(HttpServletRequest  request){

@@ -47,4 +47,7 @@ public class ConfigService {
 			loginDao.save(login);
 		}
 	}
+	public Login getLogin(String username){
+		return loginDao.findBy("username", username);
+	}
 }
