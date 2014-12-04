@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mercury.demand.persistence.model.Login;
+import com.mercury.demand.persistence.model.StocksInfo;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.persistence.model.TraderInfo;
 import com.mercury.demand.service.AdminManageService;
 import com.mercury.demand.service.ConfigService;
+import com.mercury.demand.service.StocksService;
 import com.mercury.demand.service.TraderService;
 
 @Controller
@@ -30,6 +32,8 @@ public class AdminController {
 	private TraderService ts;
 	@Autowired
 	private ConfigService cfs;
+	@Autowired
+	private StocksService sks;
 	
 	@RequestMapping("/admin.htm")
 	public String admin(ModelMap model, Principal principal){
@@ -78,5 +82,15 @@ public class AdminController {
 		cfs.config(lid, firstname, lastname, phone, email, 
 				address, city, state, zipcode);
 		return new ModelAndView("redirect:" + lid + ".htm");
+	}
+	
+	@RequestMapping("/settings.htm")
+	public String changePassword(ModelMap model){
+		return "admin/password";
+	}
+	
+	@RequestMapping("/stocks.htm")
+	public @ResponseBody StocksInfo getStocksInfo(){
+		return sks.getStocksInfo();
 	}
 }

@@ -64,4 +64,7 @@
     <bean id="creditcardDao" class="com.mercury.common.db.HibernateDao" scope="prototype">
     	<constructor-arg value="com.mercury.demand.persistence.model.Creditcard" />
     </bean>
+    <bean id="stocksDao" class="com.mercury.common.db.HibernateDao" scope="prototype">
+    	<constructor-arg value="com.mercury.demand.persistence.model.Stocks" />
+    </bean>
 </beans>

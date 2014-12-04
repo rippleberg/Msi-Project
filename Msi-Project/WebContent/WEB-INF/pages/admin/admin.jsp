@@ -33,16 +33,18 @@
     <![endif]-->
     
     <!-- AngularJS library -->
-    <script src="<c:url value='/js/anrular.min.js'/>"></script>
+    <script src="<c:url value='/js/angular.min.js'/>"></script>
     <script>
-    var adminApp = angular.module('adminApp', []);
-    adminApp.controller('AdminInfoController', function($scope){
-    	
-    });
+    angular.module('adminApp', [])
+    .controller('navController', ['$scope', function($scope){
+    	$scope.changePage = function(targetPage){
+    		$scope.mainContent = targetPage;
+    	};
+    }]);
     </script>
 </head>
-<body>
-    <div id="wrapper">
+<body ng-app="adminApp">
+    <div id="wrapper" ng-controller="navController">
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -61,11 +63,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${username } <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                    	<li>
-                        	<a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Manage</a>
-                    	</li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="config.htm"><i class="fa fa-fw fa-gear"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -78,16 +77,13 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> User Management</a>
+                        <a ng-click="changePage('manage')"><i class="fa fa-fw fa-dashboard"></i> User Management</a>
                     </li>
                     <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-gear"></i> Setting</a>
+                        <a ng-click="changePage('trans')"><i class="fa fa-fw fa-edit"></i> Make Transaction</a>
                     </li>
                     <li>
-                    	<a href="<c:url value='/j_spring_security_logout'/>"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                    </li>
-                    <li class="active">
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                        <a ng-click="changePage('stocks')"><i class="fa fa-fw fa-bar-chart-o"></i> Add/Remove Stocks</a>
                     </li>
                 </ul>
             </div>
@@ -96,23 +92,39 @@
 
         <div id="page-wrapper">
 
-            <div class="container-fluid">
+            <div class="container-fluid" ng-switch on="mainContent">
 
                 <!-- Page Heading -->
-                <div class="row">
+                <div class="row" ng-switch-default>
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Blank Page
-                            <small>Subheading</small>
+                            Yahoo Finanace System
+                            <small>Administrator Page</small>
                         </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row" ng-switch-when="manage">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Management
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row" ng-switch-when="trans">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                        	Transaction
+                        </h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row" ng-switch-when="stocks">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                        	Stocks
+                        </h1>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -133,9 +145,9 @@
     <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="<c:url value='js/plugins/morris/raphael.min.js'/>"></script>
-    <script src="<c:url value='js/plugins/morris/morris.min.js'/>"></script>
-    <script src="<c:url value='js/plugins/morris/morris-data.js'/>"></script>
+    <script src="<c:url value='/js/plugins/morris/raphael.min.js'/>"></script>
+    <script src="<c:url value='/js/plugins/morris/morris.min.js'/>"></script>
+    <script src="<c:url value='/js/plugins/morris/morris-data.js'/>"></script>
 
 </body>
 </html>
