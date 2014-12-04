@@ -14,8 +14,6 @@
 <form name="f" action="config.htm" method="POST" id="config-form">
 	<p>UID: ${trader.lid }</p>
 	<p>Username:</p><input type="text" name="c_username" id="c_username" value="${name}" disabled/><br/>
-	<p>Password:</p><input type="password" name="c_password" id="c_password"/><br/>
-	<p>password:</p><input type="password" name="c_r_password" id="c_r_password"/><br/>
 	<p>first name:</p><input type="text" name="c_firstname" id="c_firstname" value="${trader.first_name}"/><br/>
 	<p>last name:</p><input type="text" name="c_lastname" id="c_lastname" value="${trader.last_name}"/><br/>
 	<p>phone number:</p><input type="text" name="c_phone" id="c_phone" value="${trader.phone}"/><br/>
@@ -24,6 +22,7 @@
 	<p>city:</p><input type="text" name="c_city" id="c_city" value="${trader.city}"/><br/>
 	<p>State:</p><input type="text" name="c_state" id="c_state" value="${trader.home_state}"/><br/>
 	<p>zipcode:</p><input type="text" name="c_zipcode" id="c_zipcode" value="${trader.zipcode}"/><br/>
+	<input type="hidden" name="c_lid" value="${trader.lid }"/>
 	<button type="submit">confirm</button>
 </form>
 

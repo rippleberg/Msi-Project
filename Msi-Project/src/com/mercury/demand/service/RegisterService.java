@@ -24,6 +24,7 @@ public class RegisterService {
 	public void register(Login login, Trader trader){
 		login.setTrader(trader);
 		trader.setLogin(login);
+		trader.setActive("1");
 		traderDao.save(trader);
 	}
 }

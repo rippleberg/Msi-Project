@@ -15,18 +15,19 @@ public class ConfigService {
 	@Autowired
 	@Qualifier("loginDao")
 	Dao<Login, Integer> loginDao;
+	@Autowired
+	@Qualifier("traderDao")
+	Dao<Trader, Integer> traderDao;
 	
 	public Trader getCurrentTrader(String username){
 		Login login = loginDao.findBy("username", username);
 		return login.getTrader();
 	}
 	
-	public void config(String username, String password, String firstname, String lastname,
+	public void config(int lid, String firstname, String lastname,
 			String phone, String email, String address, String city, String state, String zipcode){
-		Login login = loginDao.findBy("username", username);
-		if(login == null) return;
-		Trader trader = login.getTrader();
-		if(password != null) login.setPassword(password);
+		Trader trader = traderDao.findById(lid);
+		if(trader == null) return;
 		if(firstname != null) trader.setFirst_name(firstname);
 		if(lastname != null) trader.setLast_name(firstname);
 		if(phone != null) trader.setPhone(phone);
@@ -35,6 +36,6 @@ public class ConfigService {
 		if(city != null) trader.setCity(city);
 		if(state != null) trader.setHome_state(state);
 		if(zipcode != null) trader.setZipcode(zipcode);
-		loginDao.save(login);
+		traderDao.save(trader);
 	}
 }
