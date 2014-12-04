@@ -25,6 +25,5 @@ public class RegisterService {
 		login.setTrader(trader);
 		trader.setLogin(login);
 		traderDao.save(trader);
-		loginDao.save(login);
 	}
 }

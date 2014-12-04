@@ -79,7 +79,7 @@ public class SecurityController {
 		rs.register(login, trader);
 		mailApp.getSimpleMailMessage().setTo(email);
 		mailApp.sendMail(lastname, "This is a welcome email");
-		return "security/login";
+		return "security/index";
 	}
 	
 }

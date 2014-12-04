@@ -14,19 +14,24 @@
 	<sec:global-method-security pre-post-annotations="enabled" />
 
     <sec:http pattern="/security/loggedout.htm" security="none" />
-
+	<sec:http pattern="/css/**" security="none" />
+	<sec:http pattern="/img/**" security="none" />
+	<sec:http pattern="/js/**" security="none" />
+	<sec:http pattern="/font-awesome-4.1.0/**" security="none"/>
+	<sec:http pattern="/fonts/**" security="none"/>
+	<sec:http pattern="/app/**" security="none"/>
     <sec:http use-expressions="true">
    		<sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />  	
-   		<sec:intercept-url pattern="/app/**" access="hasRole('ROLE_USER')" />  	
+   		<sec:intercept-url pattern="/app/dashboard.htm" access="hasRole('ROLE_USER')" />	
         <sec:intercept-url pattern="/**" access="permitAll" />
         
         <sec:form-login 
-        	login-page="/login.htm" 
+        	login-page="/index.htm" 
         	authentication-success-handler-ref="loginSuccessAuthHandler"
         	authentication-failure-url="/login.htm?login_error=1" 
         />
 
-        <sec:logout logout-success-url="/login.htm" delete-cookies="JSESSIONID"/>
+        <sec:logout logout-success-url="/index.htm" delete-cookies="JSESSIONID"/>
        
         <!-- Uncomment to limit the number of sessions a user can have (requires listener)
         <sec:session-management invalid-session-url="/timeout.htm">
