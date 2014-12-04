@@ -31,5 +31,16 @@
 	</c:forEach>
 </table>
 <a href="<c:url value='/j_spring_security_logout'/>">Logout</a>
+<p>host Name: <%=request.getServerName() %></p>
+<p>URL: <%=request.getRequestURL() %></p>
+<p>URI: <%=request.getRequestURI() %></p>
+<p>context path: <%=request.getContextPath() %></p>
+<% 
+	String url = request.getRequestURL().toString();
+	String uri = request.getRequestURI();
+	String contextPath = request.getContextPath();
+	String hostname = url.substring(0, url.indexOf(uri)) + contextPath;
+%>
+<p><%=hostname %></p>
 </body>
 </html>
