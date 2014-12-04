@@ -19,10 +19,9 @@
 	<sec:http pattern="/js/**" security="none" />
 	<sec:http pattern="/font-awesome-4.1.0/**" security="none"/>
 	<sec:http pattern="/fonts/**" security="none"/>
-	<sec:http pattern="/app/**" security="none"/>
     <sec:http use-expressions="true">
    		<sec:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />  	
-   		<sec:intercept-url pattern="/app/dashboard.htm" access="hasRole('ROLE_USER')" />	
+   		<sec:intercept-url pattern="/app/**" access="hasRole('ROLE_USER')" />	
         <sec:intercept-url pattern="/**" access="permitAll" />
         
         <sec:form-login 

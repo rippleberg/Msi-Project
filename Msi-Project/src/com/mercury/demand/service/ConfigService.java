@@ -38,4 +38,13 @@ public class ConfigService {
 		if(zipcode != null) trader.setZipcode(zipcode);
 		traderDao.save(trader);
 	}
+	
+	public void changePassword(int lid, String oldPwd, String newPwd){
+		Login login = loginDao.findById(lid);
+		if(login.getPassword().equals(oldPwd)){
+			System.out.println("=====================");
+			login.setPassword(newPwd);
+			loginDao.save(login);
+		}
+	}
 }

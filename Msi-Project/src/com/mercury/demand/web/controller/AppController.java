@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mercury.demand.persistence.model.Creditcard;
+import com.mercury.demand.persistence.model.Login;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.service.ConfigService;
 import com.mercury.demand.service.CreditcardService;
@@ -84,8 +85,8 @@ public class AppController {
 	}
 	
 	@RequestMapping(value="/config.htm", method = RequestMethod.POST)
-	public ModelAndView makeConfig(HttpServletRequest request, Principal principal){
-		String username = principal.getName();
+	public ModelAndView makeConfig(HttpServletRequest request){
+		int lid = Integer.parseInt(request.getParameter("c_lid"));
 		String firstname = request.getParameter("c_firstname");
 		String lastname = request.getParameter("c_lastname");
 		String phone = request.getParameter("c_phone");
@@ -94,8 +95,8 @@ public class AppController {
 		String city = request.getParameter("c_city");
 		String state = request.getParameter("c_state");
 		String zipcode = request.getParameter("c_zipcode");
-		/*cfs.config(username, password, firstname, lastname, phone, 
-				email, address, city, state, zipcode);*/
+		cfs.config(lid, firstname, lastname, phone, 
+				email, address, city, state, zipcode);
 		return new ModelAndView("redirect:" + "config.htm");
 	}
 	
@@ -112,5 +113,26 @@ public class AppController {
 		Stock stock = new Stock(request.getParameter("sid"));
 		YahooFinance.getPrice(stock);
 		return stock;
+	}
+	
+	@RequestMapping("/password.htm")
+	public ModelAndView password(Principal principal){
+		Trader trader = cfs.getCurrentTrader(principal.getName());
+		Login login = trader.getLogin();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("app/password");
+		mav.addObject("trader", trader);
+		mav.addObject("login", login);
+		return mav;
+	}
+	
+	@RequestMapping(value="/password.htm", method = RequestMethod.POST)
+	public ModelAndView changePassword(HttpServletRequest request){
+		int lid = Integer.parseInt(request.getParameter("c_lid"));
+		System.out.println("........................lid: "+lid);
+		String oldPwd = request.getParameter("c_password");
+		String newPwd = request.getParameter("c_n_password");
+		cfs.changePassword(lid, oldPwd, newPwd);
+		return new ModelAndView("redirect:" + "password.htm");
 	}
 }
