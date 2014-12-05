@@ -1,6 +1,9 @@
 package com.mercury.demand.persistence.model;
 
-public class Stock {
+import java.io.Serializable;
+
+public class Stock implements Serializable {
+	private static final long serialVersionUID = 4574838627646279575L;
 	private String sid;
 	private String name;
 	private double price;

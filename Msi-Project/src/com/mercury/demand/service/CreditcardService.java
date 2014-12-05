@@ -28,8 +28,4 @@ public class CreditcardService {
 		trader.addCreditcard(creditcard);
 		traderDao.save(trader);
 	}
-	
-	public Trader getTrader(String username) {
-		return traderDao.findBy("username", username);
-	}
 }

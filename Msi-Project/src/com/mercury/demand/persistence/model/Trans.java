@@ -14,8 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="TRANS")
 public class Trans implements Serializable{
-	
-	private static final long serialVersionUID = -796868397858674727L;
+	private static final long serialVersionUID = -8010689251427805798L;
 	private int tid;
 	private int lid;
 	private String sid;

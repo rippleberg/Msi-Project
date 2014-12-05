@@ -4,10 +4,14 @@ import java.io.*;
 import java.net.*;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.mercury.demand.persistence.model.Stock;
 import com.mercury.demand.persistence.model.util.StockUtil;
 import com.mercury.util.CsvParser;
-
+@Service
+@Transactional
 public class YahooFinance {
 	public static void getPrice(Stock stock) {
 		String yahoo_quote = "http://finance.yahoo.com/d/quotes.csv?s=" + stock.getSid() + "&f=snl1c1p2mv&e=.c";

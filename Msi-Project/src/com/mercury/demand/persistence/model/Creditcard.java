@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="CREDITCARD")
 public class Creditcard implements Serializable{
 	
-	private static final long serialVersionUID = -7382198709451164524L;
+	private static final long serialVersionUID = -5686131026301182945L;
 	private int cid;
 	private int lid;
 	private String card_holder;

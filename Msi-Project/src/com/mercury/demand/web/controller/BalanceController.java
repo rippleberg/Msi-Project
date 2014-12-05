@@ -1,7 +1,9 @@
 package com.mercury.demand.web.controller;
 
 
+import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mercury.demand.persistence.model.Creditcard;
@@ -68,9 +71,13 @@ public class BalanceController {
 	}
 
 	@RequestMapping(value="/app/balance.htm", method=RequestMethod.GET)
-	public ModelAndView viewBalance(){
+	public ModelAndView viewBalance(Principal principal){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/app/balance");
+		String username = principal.getName();
+		Trader trader = trader_s.getTrader(username);
+		mav.addObject("shownName", 
+				trader.getFirst_name() + " " + trader.getLast_name());
 		return mav;
 	}
 	
@@ -129,6 +136,11 @@ public class BalanceController {
 		trader_s.save(trader);
 		mav.setViewName("/app/balance");
 		return mav;
+	}
+	
+	@RequestMapping(value="app/", method = RequestMethod.POST)
+	public @ResponseBody List<Creditcard> getAllCards(){
+		return null;
 	}
 	
 }

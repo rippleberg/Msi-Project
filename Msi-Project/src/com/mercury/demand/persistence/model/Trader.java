@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,7 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="TRADER")
 public class Trader implements Serializable{
 	
-	private static final long serialVersionUID = 5138687906794194145L;
+	private static final long serialVersionUID = -670738724585080943L;
 	private int lid;
 	private String first_name;
 	private String last_name;

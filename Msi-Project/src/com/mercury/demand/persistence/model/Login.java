@@ -18,7 +18,7 @@ import org.hibernate.annotations.Parameter;
 @Table(name="LOGIN")
 public class Login implements Serializable{
 	
-	private static final long serialVersionUID = 2201370792533438115L;
+	private static final long serialVersionUID = -147113595658475161L;
 	private int lid;
 	private String username;
 	private String password;

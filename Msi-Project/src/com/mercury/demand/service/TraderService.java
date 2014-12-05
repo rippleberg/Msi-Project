@@ -6,15 +6,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mercury.common.db.Dao;
+import com.mercury.demand.persistence.model.Login;
 import com.mercury.demand.persistence.model.Trader;
 
 @Service
 @Transactional
 public class TraderService {
-	
+
 	@Autowired
 	@Qualifier("traderDao")
 	Dao<Trader, Integer> traderDao;
+	@Autowired
+	@Qualifier("loginDao")
+	Dao<Login, Integer> loginDao;
 	
 	public void save(Trader trader) {
 		traderDao.save(trader);
@@ -29,6 +33,6 @@ public class TraderService {
 	}
 	
 	public Trader getTrader(String username) {
-		return traderDao.findBy("username", username);
+		return loginDao.findBy("username", username).getTrader();
 	}
 }

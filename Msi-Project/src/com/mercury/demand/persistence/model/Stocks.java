@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="STOCKS")
 public class Stocks implements Serializable{
 
-	private static final long serialVersionUID = -8764591500290828720L;
+	private static final long serialVersionUID = 20978061222836280L;
 	private String sid;
 	private Set<Trader> traders;
 	
