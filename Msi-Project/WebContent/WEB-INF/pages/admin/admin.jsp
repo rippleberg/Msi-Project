@@ -41,6 +41,59 @@
     		$scope.mainContent = targetPage;
     	};
     }])
+    .controller('transController', ['$scope', '$http', '$templateCache',
+                                    function($scope, $http, $templateCache){
+    	$scope.getUncomTrans = function(){
+    		$http({
+    			method: 'POST',
+    			url: 'untrans.htm',
+        		header: {
+        			'Content-Type': 'application/x-www-form-urlencoded'
+        		},
+        		data: {},
+        		cache: $templateCache
+    		}).success(function(data, status){
+    			$scope.uTrans = data;
+    		}).error(function(data, status){
+    			alert(data);
+    		});
+    	};
+    	$scope.getComTrans = function(){
+    		$http({
+    			method: 'POST',
+    			url: 'cotrans.htm',
+        		header: {
+        			'Content-Type': 'application/x-www-form-urlencoded'
+        		},
+        		data: {},
+        		cache: $templateCache
+    		}).success(function(data, status){
+    			$scope.cTrans = data;
+    		}).error(function(data, status){
+    			alert(data);
+    		});
+    	};
+    	$scope.getTrans = function(){
+    		$scope.getUncomTrans();
+    		$scope.getComTrans();
+    	}
+    	$scope.makeTrans = function(){
+    		$http({
+    			method: 'POST',
+    			url: 'maketrans.htm',
+        		header: {
+        			'Content-Type': 'application/x-www-form-urlencoded'
+        		},
+        		data: {},
+        		cache: $templateCache
+    		}).success(function(data, status){
+        		$scope.uTrans = [];
+        		$scope.cTrans = data;
+    		}).error(function(data, status){
+    			alert(data);
+    		});
+    	}
+    }])
     .controller('stocksController', ['$scope', '$http', '$templateCache',
                                      function($scope, $http, $templateCache){
     	$scope.getStocksInfo = function() {
@@ -48,7 +101,7 @@
     			method: 'POST',
     			url: 'stocks.htm',
     			header: {
-    				'Content-Type': undefined
+    				'Content-Type': 'application/x-www-form-urlencoded'
     			},
     			data: {},
     			cache: $templateCache
@@ -175,11 +228,62 @@
                 <!-- /.row page for management-->
                 
                 <!-- page for transaction -->
-                <div class="row" ng-switch-when="trans">
+                <div class="row" ng-switch-when="trans" ng-init="getTrans()">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                         	Transaction
                         </h1>
+                    </div>
+                    <div class="col-lg-12">
+                    	<h2>Uncommitted</h2>
+                    	<button class="btn btn-primary">Commit Transaction</button>
+                    	<table class="table table-hover" id="utrans">
+                    	<thead><tr>
+                    		<th>TID</th>
+                    		<th>LID</th>
+                    		<th>SID</th>
+                    		<th>Time</th>
+                    		<th>Price</th>
+                    		<th>Quantity</th>
+                    		<th>Type</th>
+                    		<th>Status</th>
+                    	</tr></thead>
+                    	<tbody><tr ng-repeat="t in uTrans">
+                    		<td>{{t.tid}}</td>
+                    		<td>{{t.lid}}</td>
+                    		<td>{{t.sid}}</td>
+                    		<td>{{t.t_time}}</td>
+                    		<td>{{t.price}}</td>
+                    		<td>{{t.quantity}}</td>
+                    		<td>{{t.t_type}}</td>
+                    		<td>{{t.t_status}}</td>
+                    	</tr></tbody>
+                    	</table>
+                    </div>
+                    <div class="col-lg-12">
+                    	<h2>Comitted</h2>
+                    	<table class="table table-hover" id="ctrans">
+                    	<thead><tr>
+                    		<th>TID</th>
+                    		<th>LID</th>
+                    		<th>SID</th>
+                    		<th>Time</th>
+                    		<th>Price</th>
+                    		<th>Quantity</th>
+                    		<th>Type</th>
+                    		<th>Status</th>
+                    	</tr></thead>
+                    	<tbody><tr ng-repeat="t in cTrans">
+                    		<td>{{t.tid}}</td>
+                    		<td>{{t.lid}}</td>
+                    		<td>{{t.sid}}</td>
+                    		<td>{{t.t_time}}</td>
+                    		<td>{{t.price}}</td>
+                    		<td>{{t.quantity}}</td>
+                    		<td>{{t.t_type}}</td>
+                    		<td>{{t.t_status}}</td>
+                    	</tr></tbody>
+                    	</table>
                     </div>
                 </div>
                 <!-- /.row page for transaction-->

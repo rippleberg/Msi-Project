@@ -18,11 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mercury.demand.persistence.model.Login;
 import com.mercury.demand.persistence.model.Stocks;
 import com.mercury.demand.persistence.model.Trader;
-import com.mercury.demand.persistence.model.TraderInfo;
+import com.mercury.demand.persistence.model.Trans;
 import com.mercury.demand.service.AdminManageService;
 import com.mercury.demand.service.ConfigService;
 import com.mercury.demand.service.StocksService;
 import com.mercury.demand.service.TraderService;
+import com.mercury.demand.service.TransactionService;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,6 +37,8 @@ public class AdminController {
 	private ConfigService cfs;
 	@Autowired
 	private StocksService sks;
+	@Autowired
+	private TransactionService txs;
 	
 	@RequestMapping("/admin.htm")
 	public String admin(ModelMap model, Principal principal){
@@ -47,10 +50,10 @@ public class AdminController {
 	
 	@RequestMapping("/management.htm")
 	public ModelAndView management(){	
-		TraderInfo traderInfo = ams.getAllTraders();
+		List<Trader> traders = ams.getAllTraders();
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("admin/management");
-		mav.addObject("traderInfo", traderInfo);
+		mav.addObject("traders", traders);
 		return mav;
 	}
 
@@ -91,7 +94,7 @@ public class AdminController {
 		return "admin/password";
 	}
 	
-	@RequestMapping(value="/stocks.htm")//, method = RequestMethod.POST)
+	@RequestMapping(value="/stocks.htm", method = RequestMethod.POST)
 	public @ResponseBody List<Stocks> getStocks(){
 		return sks.getStocks();
 	}
@@ -104,5 +107,18 @@ public class AdminController {
 	public @ResponseBody List<Stocks> removeStock(@RequestBody Stocks stocks){
 		sks.removeStocks(stocks.getSid());
 		return sks.getStocks();
+	}
+	@RequestMapping(value="/untrans.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Trans> getUnComTrans(){
+		return txs.getAllUncommittedTrans();
+	}
+	@RequestMapping(value="/cotrans.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Trans> getComTrans(){
+		return txs.getAllCommittedTrans();
+	}
+	@RequestMapping(value="/maketrans.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Trans> makeTrans(){
+		txs.saveToDatabase();
+		return txs.getAllCommittedTrans();
 	}
 }
