@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,8 +114,13 @@ public class TransactionService {
 				tempTrans.setT_time(date);
 				tempTrans.setPrice(Double.parseDouble(strs[3]));
 				tempTrans.setQuantity(Integer.parseInt(strs[4]));
-				tempTrans.setT_type("C");
-				tempTrans.setT_status(strs[6]);
+				tempTrans.setT_type(strs[5]);
+				String status = strs[6];
+				if(status.equalsIgnoreCase("D")) {
+					tempTrans.setT_status(strs[6]);
+				}else {
+					tempTrans.setT_status("C");
+				}
 				
 				if(!transactions.containsKey(tempTrader)) {
 					transactions.put(tempTrader, new ArrayList<Trans>());

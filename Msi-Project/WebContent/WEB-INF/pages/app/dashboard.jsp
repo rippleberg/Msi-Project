@@ -41,7 +41,7 @@
 	});
 	function getMarketData() {	
 		$.ajax({
-			url: "http://localhost:8080/Msi-Project/app/showStock",
+			url: "http://localhost:8080/Msi-Project/app/showMarketData.htm",
 			type: "post",
 			dataType: "json",
 			success: showData
@@ -124,6 +124,37 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+        
+        <!-- Show Stock Information -->
+		<div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> MarketData</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped" id=stockList>
+                                        <thead>
+                                            <tr>
+                                                <th>Stock Id</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Change</th>
+                                                <th>Percent Change</th>
+                                                <th>High</th>
+                                                <th>Low</th>
+                                                <th>Volume</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stocks"></tbody>
+                                    </table>
+                                </div>
+                                <div class="text-right">
+                                    <a href="#">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+         </div>
 
         <div id="page-wrapper">
 

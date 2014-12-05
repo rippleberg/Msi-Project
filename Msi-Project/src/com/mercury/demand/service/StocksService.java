@@ -33,4 +33,8 @@ public class StocksService {
 		if(stocks != null)
 			stocksDao.delete(stocks);
 	}
+	
+	public Stocks getStockBySymbol(String symbol) {
+		return stocksDao.findById(symbol);
+	}
 }

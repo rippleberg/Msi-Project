@@ -26,7 +26,7 @@ public class Trans implements Serializable{
 	private String t_status;
 	
 	public Trans() {}
-	public Trans(String sid, Date t_time, int price, int quantity, String t_type, String t_status) {
+	public Trans(String sid, Date t_time, double price, int quantity, String t_type, String t_status) {
 		this.sid = sid;
 		this.t_time = t_time;
 		this.price = price;
