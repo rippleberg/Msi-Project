@@ -55,7 +55,7 @@
     		})
     		.success(function(data, status){
     			$scope.pageInfo = '1';
-    			$scope.stocks = data.stocks;
+    			$scope.stocks = data;
     		})
     		.error(function(data, status){
     			alert(data);
@@ -74,7 +74,7 @@
     		})
     		.success(function(data, status){
     			$scope.pageInfo = '1';
-    			$scope.stocks = data.stocks;
+    			$scope.stocks = data;
     		})
     		.error(function(data, status){
     			alert(data);
@@ -93,7 +93,7 @@
     		})
     		.success(function(data, status){
     			$scope.pageInfo = '1';
-    			$scope.stocks = data.stocks;
+    			$scope.stocks = data;
     		})
     		.error(function(data, status){
     			alert(data);
@@ -191,15 +191,15 @@
                         	Stocks Info
                         </h1>
                     </div>
-                    <form id="addStocks" class="from-group">
-                    	<div class="col-lg-10"><input class="form-control" ng-model="ssid" placeholder="Please enter stock ID."></div>
-                    	<button class="btn btn-primary" ng-click="addStocks(ssid)">Add</button>
+                    <form id="addStocks" class="from-group col-lg-12">
+                    	<div class="col-lg-8 col-lg-offset-2"><input class="form-control" ng-model="ssid" placeholder="Please enter stock ID."></div>
+                    	<div class="col-lg-1"><button class="btn btn-primary" ng-click="addStocks(ssid)">Add</button></div>
                     </form>                    
                     <table class="table table-hover" id="stocks">
                      	<thead><tr><th>SID</th><th class="col-lg-1">Remove</th></tr></thead>
                        	<tbody>
                        		<tr ng-repeat="s in stocks">
-                       			<td>{{s.sid}}</td>
+                       			<td>{{s.sid | uppercase}}</td>
                        			<td><a ng-click="removeStocks(s.sid)"><span class="s-remove glyphicon glyphicon-remove"></span></a></td>
                        		</tr>
                        	</tbody>
