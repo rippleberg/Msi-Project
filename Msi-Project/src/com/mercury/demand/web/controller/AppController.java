@@ -92,11 +92,10 @@ public class AppController {
 	}
 	
 	@RequestMapping("/dashboard.htm")
-	/*public ModelAndView dashboard(){
-		return null;
-	}*/
-	public String dashboard(){
-		return "app/dashboard";
+	public ModelAndView dashboard(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("app/dashboard");
+		return mav;
 	}
 	
 	@RequestMapping(value="/stock.htm", method = RequestMethod.GET)
@@ -127,8 +126,9 @@ public class AppController {
 		return new ModelAndView("redirect:" + "password.htm");
 	}
 	
-	@RequestMapping(value="/app/showMarketData.htm", method=RequestMethod.POST)
+	@RequestMapping(value="/showMarketData.htm", method=RequestMethod.POST)
 	public @ResponseBody List<Stock> showMarketData(ModelMap model) {
+		System.out.println("showMarketData has been executed");
 		List<Stock> stockList = new ArrayList<Stock>();
 		List<Stocks> stocksSids = stock_s.getStocks();
 		for(Stocks tempStock:stocksSids) {
@@ -136,7 +136,6 @@ public class AppController {
 			stockList.add(stock);
 		}
 		YahooFinance.marketData(stockList);
-		System.out.println("showMarketData has been executed");
 		return stockList;
 	}
 }
