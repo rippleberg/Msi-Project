@@ -32,12 +32,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-</head>
-
+<script src="../js/jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-		setInterval("getMarketData()", 2000);	// Send request every 2 seconds
+		setInterval("getMarketData()", 10000);	// Send request every 2 seconds
 	});
 	function getMarketData() {	
 		$.ajax({
@@ -50,7 +49,7 @@
 	function showData(data) {
 		var rows = "";
 		$("#stocks").empty();		
-		$(data.stock).each(function(i, item) {
+		$(data).each(function(i, item) {
 			var sid = item.sid;
 			var name = item.name;
 			var price = item.price;
@@ -63,13 +62,22 @@
 			if (change>0) color = "green";
 			else if (change<0) color="red";
 			else color="black";
-			rows = "<tr><td>" + sid + "</td><td>" +name +"</td><td>"+ price + "</td><td>" + "<font color=" + color + ">" 
-			+ change + "</font></td>"+ "<font color=" + color + ">"+ percentChange + "</font></td><td>"+ high +
-			"</td><td>"+ low + "</td><td>" + volumn +"</td></tr>";
+			rows = "<tr>"+
+			       "<td>" +sid+ "</td>"+
+			       "<td>" +name +"</td>"+
+			       "<td>"+ price + "</td>"+
+			       "<td><font color=" + color + ">" + change + "</font></td>"+ 
+			       "<td><font color=" + color + ">"+ percentChange + "</font></td>"+
+			       "<td>"+ high +"</td>"+
+			       "<td>"+ low + "</td>"+
+			       "<td>" + volumn +"</td>"+
+			       "</tr>";
 			$(rows).appendTo("#stocks");
 		})		
 	}
 </script>
+
+</head>
 
 <body>
 
@@ -126,7 +134,7 @@
         </nav>
         
         <!-- Show Stock Information -->
-		<div>
+        <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> MarketData</h3>
