@@ -3,6 +3,7 @@ package com.mercury.demand.service;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,4 +35,25 @@ public class TransactionService {
 			e.printStackTrace();
 		}
 	}
+	
+	public void save(Trans trans) {
+		transDao.save(trans);
+	}
+	
+	public void delete(Trans trans) {
+		transDao.delete(trans);
+	}
+	
+	public Trans getTransByTid(int tid) {
+		return transDao.findById(tid);
+	}
+	public List<Trans> getTransByLid(int lid) {
+		return transDao.findAllBy("LID", lid);
+	}
+	
+	public List<Trans> getTransBySid(String sid) {
+		return transDao.findAllBy("SID", sid);
+	}
+	
+	
 }
