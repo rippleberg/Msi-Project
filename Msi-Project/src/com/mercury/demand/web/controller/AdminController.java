@@ -1,17 +1,19 @@
 package com.mercury.demand.web.controller;
 
 import java.security.Principal;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.mercury.demand.persistence.model.Login;
-import com.mercury.demand.persistence.model.StocksInfo;
+import com.mercury.demand.persistence.model.Stocks;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.persistence.model.TraderInfo;
 import com.mercury.demand.service.AdminManageService;
@@ -86,8 +88,18 @@ public class AdminController {
 		return "admin/password";
 	}
 	
-	@RequestMapping("/stocks.htm")
-	public @ResponseBody StocksInfo getStocksInfo(){
-		return sks.getStocksInfo();
+	@RequestMapping(value="/stocks.htm")//, method = RequestMethod.POST)
+	public @ResponseBody List<Stocks> getStocks(){
+		return sks.getStocks();
+	}
+	@RequestMapping(value="/addstocks.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Stocks> addStocks(@RequestBody Stocks stocks){
+		sks.addStocks(stocks.getSid());
+		return sks.getStocks();
+	}
+	@RequestMapping(value="/rmstocks.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Stocks> removeStock(@RequestBody Stocks stocks){
+		sks.removeStocks(stocks.getSid());
+		return sks.getStocks();
 	}
 }

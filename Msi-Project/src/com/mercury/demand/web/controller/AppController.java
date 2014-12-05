@@ -1,23 +1,25 @@
 package com.mercury.demand.web.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mercury.demand.persistence.model.Creditcard;
 import com.mercury.demand.persistence.model.Login;
+import com.mercury.demand.persistence.model.Stocks;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.service.ConfigService;
-import com.mercury.demand.service.CreditcardService;
-import com.mercury.demand.service.TransactionService;
+import com.mercury.demand.service.StocksService;
+import com.mercury.demand.service.TraderService;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,41 +41,30 @@ public class AppController {
 	public void setCfs(ConfigService cfs) {
 		this.cfs = cfs;
 	}
-
-	@Autowired
-	private CreditcardService cs;
-	
-	public CreditcardService getCs() {
-		return cs;
-	}
-
-	public void setCs(CreditcardService cs) {
-		this.cs = cs;
-	}
 	
 	@Autowired
-	private TransactionService ts;
+	private TraderService trader_s;
 	
-	public TransactionService getTs() {
-		return ts;
+	
+	public TraderService getTrader_s() {
+		return trader_s;
 	}
 
-	public void setTs(TransactionService ts) {
-		this.ts = ts;
-	}
-
-	public void addCard(HttpServletRequest request){
-		String card_holder = request.getParameter("Card_holder");
-		byte[] card_number = request.getParameter("Card_number").getBytes();
-		int expire_month = Integer.parseInt(request.getParameter("Expire_month"));
-		int expire_year = Integer.parseInt(request.getParameter("Expire_year"));
-		int code = Integer.parseInt(request.getParameter("Code"));
-		Creditcard creditcard = new Creditcard(card_holder, card_number, expire_month, expire_year, code);
-		String username=SecurityContextHolder.getContext().getAuthentication().getName();
-		Trader trader = cs.getTrader(username);
-		cs.creditcard(creditcard, trader);
+	public void setTrader_s(TraderService trader_s) {
+		this.trader_s = trader_s;
 	}
 	
+	@Autowired
+	private StocksService stock_s;
+	
+	public StocksService getStock_s() {
+		return stock_s;
+	}
+
+	public void setStock_s(StocksService stock_s) {
+		this.stock_s = stock_s;
+	}
+
 	@RequestMapping("/config.htm")
 	public ModelAndView config(Principal principal) {
 		Trader trader = cfs.getCurrentTrader(principal.getName());
@@ -134,5 +125,18 @@ public class AppController {
 		String newPwd = request.getParameter("c_n_password");
 		cfs.changePassword(lid, oldPwd, newPwd);
 		return new ModelAndView("redirect:" + "password.htm");
+	}
+	
+	@RequestMapping(value="/app/showMarketData.htm", method=RequestMethod.POST)
+	public @ResponseBody List<Stock> showMarketData(ModelMap model) {
+		List<Stock> stockList = new ArrayList<Stock>();
+		List<Stocks> stocksSids = stock_s.getStocks();
+		for(Stocks tempStock:stocksSids) {
+			Stock stock = new Stock(tempStock.getSid());
+			stockList.add(stock);
+		}
+		YahooFinance.marketData(stockList);
+		System.out.println("showMarketData has been executed");
+		return stockList;
 	}
 }
