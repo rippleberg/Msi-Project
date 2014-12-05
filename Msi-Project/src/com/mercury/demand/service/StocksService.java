@@ -21,4 +21,17 @@ public class StocksService {
 		res.setStocks(stocksDao.findAll());
 		return res;
 	}
+	
+	public void addStocks(String sid){
+		Stocks stocks = new Stocks(sid);
+		stocksDao.save(stocks);
+	}
+	
+	public void removeStocks(String sid){
+		System.out.println("====================");
+		System.out.println(sid);
+		Stocks stocks = stocksDao.findById(sid);
+		if(stocks != null)
+			stocksDao.delete(stocks);
+	}
 }

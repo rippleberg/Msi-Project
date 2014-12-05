@@ -40,6 +40,65 @@
     	$scope.changePage = function(targetPage){
     		$scope.mainContent = targetPage;
     	};
+    }])
+    .controller('stocksController', ['$scope', '$http', '$templateCache',
+                                     function($scope, $http, $templateCache){
+    	$scope.getStocksInfo = function() {
+    		$http({
+    			method: 'POST',
+    			url: 'stocks.htm',
+    			header: {
+    				'Content-Type': undefined
+    			},
+    			data: {},
+    			cache: $templateCache
+    		})
+    		.success(function(data, status){
+    			$scope.pageInfo = '1';
+    			$scope.stocks = data.stocks;
+    		})
+    		.error(function(data, status){
+    			alert(data);
+    		});
+    	};
+    	$scope.addStocks = function(ssid) {
+    		$scope.ssid = ssid;
+    		$http({
+    			method: 'POST',
+    			url: 'addstocks.htm',
+    			header: {
+    				'Content-Type': 'application/x-www-form-urlencoded'
+    			},
+    			data: { 'sid': $scope.ssid },
+    			cache: $templateCache
+    		})
+    		.success(function(data, status){
+    			$scope.pageInfo = '1';
+    			$scope.stocks = data.stocks;
+    		})
+    		.error(function(data, status){
+    			alert(data);
+    		});
+    		
+    	};
+    	$scope.removeStocks = function(ssid){
+    		$http({
+    			method: 'POST',
+    			url: 'rmstocks.htm',
+    			header: {
+    				'Content-Type': 'application/x-www-form-urlencoded'
+    			},
+    			data: { 'sid': ssid },
+    			cache: $templateCache
+    		})
+    		.success(function(data, status){
+    			$scope.pageInfo = '1';
+    			$scope.stocks = data.stocks;
+    		})
+    		.error(function(data, status){
+    			alert(data);
+    		});
+    	};
     }]);
     </script>
 </head>
@@ -104,6 +163,8 @@
                     </div>
                 </div>
                 <!-- /.row -->
+                
+                <!-- page for management -->
                 <div class="row" ng-switch-when="manage">
                     <div class="col-lg-12">
                         <h1 class="page-header">
@@ -111,7 +172,9 @@
                         </h1>
                     </div>
                 </div>
-                <!-- /.row -->
+                <!-- /.row page for management-->
+                
+                <!-- page for transaction -->
                 <div class="row" ng-switch-when="trans">
                     <div class="col-lg-12">
                         <h1 class="page-header">
@@ -119,15 +182,30 @@
                         </h1>
                     </div>
                 </div>
-                <!-- /.row -->
-                <div class="row" ng-switch-when="stocks">
+                <!-- /.row page for transaction-->
+                
+                <!-- page for stocks -->
+                <div class="row" ng-switch-when="stocks" ng-controller="stocksController" ng-init="getStocksInfo()">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                        	Stocks
+                        	Stocks Info
                         </h1>
                     </div>
+                    <form id="addStocks" class="from-group">
+                    	<div class="col-lg-10"><input class="form-control" ng-model="ssid" placeholder="Please enter stock ID."></div>
+                    	<button class="btn btn-primary" ng-click="addStocks(ssid)">Add</button>
+                    </form>                    
+                    <table class="table table-hover" id="stocks">
+                     	<thead><tr><th>SID</th><th class="col-lg-1">Remove</th></tr></thead>
+                       	<tbody>
+                       		<tr ng-repeat="s in stocks">
+                       			<td>{{s.sid}}</td>
+                       			<td><a ng-click="removeStocks(s.sid)"><span class="s-remove glyphicon glyphicon-remove"></span></a></td>
+                       		</tr>
+                       	</tbody>
+                    </table>
                 </div>
-                <!-- /.row -->
+                <!-- /.row page for stocks-->
 
             </div>
             <!-- /.container-fluid -->
@@ -148,6 +226,11 @@
     <script src="<c:url value='/js/plugins/morris/raphael.min.js'/>"></script>
     <script src="<c:url value='/js/plugins/morris/morris.min.js'/>"></script>
     <script src="<c:url value='/js/plugins/morris/morris-data.js'/>"></script>
+    <style>
+    .s-remove:hover{
+    	color: red;
+    }
+    </style>
 
 </body>
 </html>
