@@ -27,7 +27,7 @@
         <sec:form-login 
         	login-page="/index.htm" 
         	authentication-success-handler-ref="loginSuccessAuthHandler"
-        	authentication-failure-url="/login.htm?login_error=1" 
+        	authentication-failure-url="/index.htm?login_error=1" 
         />
 
         <sec:logout logout-success-url="/index.htm" delete-cookies="JSESSIONID"/>

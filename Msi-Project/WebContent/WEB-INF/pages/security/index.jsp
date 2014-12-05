@@ -62,6 +62,17 @@ $(document).ready(function() {
 	  	$('#wrongCredentials').show();
 	}
 	$("#signin").on("click", loginValidation);	
+	$("#r_username").on("blur", function() {
+		$.ajax({
+			url: "validate/username.htm",
+			type: "get",
+			dataType: "html",
+			data: {username: $("#r_username").val()},
+			success: function(response) {
+				alert(response);
+			}
+		});
+	});
 });
 
 function loginValidation() {
@@ -82,6 +93,18 @@ function loginValidation() {
   		return true;
   	}
 }
+
+
+
+
+$(document).ready(function(){
+	  $("input").focus(function(){
+	    $(this).css("background-color","#cccccc");
+	  });
+	  $("input").blur(function(){
+	    $(this).css("background-color","#ffffff");
+	  });
+	});
 </script>
   
 </head>
