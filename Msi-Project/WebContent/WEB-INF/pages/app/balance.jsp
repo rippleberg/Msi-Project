@@ -39,7 +39,7 @@
     	$scope.getAllCreditcards = function(){
     		$http({
     			method: 'POST',
-    			url: 'untrans.htm',
+    			url: 'allcards.htm',
         		header: {
         			'Content-Type': 'application/x-www-form-urlencoded'
         		},
@@ -51,11 +51,39 @@
     			alert(data);
     		});
     	};
+    	
+    	$scope.addCreditCard = function(){
+    		var sendData = 
+        		"card_holder" + $scope.holderName +
+        		"&card_number" + $scope.cardNo +
+        		"&expire_month" + $scope.exmm +
+        		"&expire_year" + $scope.exyy +
+        		"&code" + $scope.cvv
+        	;
+        	$http.post('addcard.htm', sendData, {
+        		header: {
+            		'Content-Type': 'application/x-www-form-urlencoded'
+            	},
+            	cache: $templateCache
+        	}).success(function(data, status){
+        		$scope.allcards = data;
+        		alert("received");
+        	}).error(function(data, status){
+        		alert(data);
+        	});
+    	};
+    	
+    	$scope.addBalance = function(){
+    		
+    	}
+    	
+    	//validation
+    	
     }]);
     </script>
 </head>
 
-<body>
+<body ng-app="balanceModule">
 
     <div id="wrapper">
 
@@ -114,7 +142,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="row">
+                <div class="row" ng-controller="creditcardController">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Add Balance
@@ -130,38 +158,59 @@
                     </div>
                     <div class="col-lg-8">
                     	<h2>Add Balance</h2>
-                    	<form class="form-horizontal" role="form">
-                    		<div id="creditcard-info" class="form-group" style="background:#f77">
-                    			<h3>   Credit Card Information</h3>
+                    	<form class="form-horizontal" name="cardform" role="form" novalidate>
+                    		<div id="creditcard-info" class="form-group" style="background:#77f">
+                    			<div class="col-sm-1"></div><h3 class="col-sm-10">   Credit Card Information</h3>
                     			<div class="form-group">
-                    				<div class="col-sm-8 col-sm-offset-1">
-                    					<input class="form-control" id="creditCardNo" placeholder="Card Number"/>
+                    				<div class="col-sm-8 col-sm-offset-1"  ng-class="{ 'has-error': cardform.cardNo.$invalid && cardform.cardNo.$dirty }">
+                    					<input class="form-control" id="creditCardNo" placeholder="Card Number" 
+                    					name="cardNo" ng-model="cardNo"
+                    					ng-pattern="/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/" required/>
                     				</div>
-                    				<div class="col-sm-2"><input class="form-control" id="code" placeholder="CVV"/></div>
+                    				<div class="col-sm-2"  ng-class="{ 'has-error': cardform.cvv.$invalid && cardform.cvv.$dirty }">
+                    					<input class="form-control" id="code" placeholder="CVV" 
+                    						name="cvv" ng-model="cvv"
+                    						ng-pattern="/^[0-9]{3}$/" required/>
+                    				</div>
                     			</div>
                     			<div class="form-group">                    			
                     			<label for="ex-year" class="col-sm-2 control-label">Expire Time:</label>
-                    				<div class="col-sm-2"><input type="text" class="form-control" id="ex-year" placeholder="yy"/></div>
-                    				<div class="col-sm-2"><input type="text" class="form-control" id="ex-month" placeholder="mm"/></div>
+                    				<div class="col-sm-2"  ng-class="{ 'has-error': cardform.exyy.$invalid && cardform.exyy.$dirty }">
+                    					<input type="text" class="form-control" id="ex-year" 
+                    						placeholder="yy" name="exyy" ng-model="exyy"
+                    						ng-pattern="/^(20)?[0-9][0-9]$/" required/></div>
+                    				<div class="col-sm-2"  ng-class="{ 'has-error': cardform.exmm.$invalid && cardform.exmm.$dirty }">
+                    					<input type="text" class="form-control" id="ex-month" 
+                    						placeholder="mm" name="exmm" ng-model="exmm"
+                    						ng-pattern="/^(([1-9])|(0[1-9])|(1[1-2]))$/" required/></div>
                     			</div>                    			
-                    			<div class="form-group">
+                    			<div class="form-group" ng-class="{ 'has-error': cardform.holderName.$invalid && cardform.holderName.$dirty }">
                     				<label for="cc-name" class="col-sm-2 control-label">Name:</label>
-                    				<div class="col-sm-8"><input type="text" class="form-control" id="cc-name" placeholder="Holder's name"/></div>
+                    				<div class="col-sm-8"><input type="text" class="form-control" id="cc-name" 
+                    					placeholder="Holder's name" name="holderName" ng-model="holderName"
+                    					ng-pattern="/^[A-Z][a-zA-Z]*( [A-Z][a-zA-Z]*)*$/"/></div>
                     			</div>
                     		</div>
-                    		<div id="balance-info" class="form-group">
+                    		<div id="balance-info" class="form-group" >
                     			<label for="balance-input" class="col-sm-2 control-label">Balance:</label>
-                    			<div class="col-sm-6">
-                    				<input type="number" class="form-control" id="balance-input" placeholder="Balance"/>
+                    			<div class="col-sm-6" ng-class="{ 'has-error': cardform.bal.$invalid && cardform.bal.$dirty }">
+                    				<input type="number" class="form-control" name="bal" id="balance-input" placeholder="Balance" ng-model="bal" required/>
                     			</div>
-                    			<button class="btn btn-primary">Submit</button>
+                    			<button class="btn btn-primary" ng-disabled="cardform.$invalid">Submit</button>
                     		</div>
                     	</form>
                     </div>
                     <!-- /.pay-content -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" ng-init="getAllCreditcards()">
                     	<h2>Saved Credit Cards</h2>
-                    	<table></table>
+                    	<table class="table table-hover" id="allccards">
+                    		<thead><tr><th>Number</th></tr></thead>
+                    		<tbody>
+                    			<tr ng-repeat="c in allcards">
+                    				<td>{{c.card_number}}</td>
+                    			</tr>
+                    		</tbody>
+                    	</table>
                     </div>
                     <!-- /.creditcard-content -->
                 </div>

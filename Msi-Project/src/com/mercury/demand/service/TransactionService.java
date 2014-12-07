@@ -71,7 +71,7 @@ public class TransactionService {
 		List<Trans> res = new ArrayList<Trans>();
 		try {
 			File file = new File("transactions.csv");
-			if(!file.exists()) return null;
+			if(!file.exists()) return res;
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			while(reader.ready()) {
 				String str = reader.readLine();

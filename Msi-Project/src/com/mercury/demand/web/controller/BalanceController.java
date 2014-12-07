@@ -2,6 +2,7 @@ package com.mercury.demand.web.controller;
 
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,12 +13,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mercury.demand.persistence.model.Creditcard;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.persistence.model.Trans;
+import com.mercury.demand.service.CreditcardService;
 import com.mercury.demand.service.RealTimePriceService;
 import com.mercury.demand.service.StocksService;
 import com.mercury.demand.service.TraderService;
@@ -25,6 +28,9 @@ import com.mercury.demand.service.TransactionService;
 
 @Controller
 public class BalanceController {
+	
+	@Autowired
+	CreditcardService ccs;
 	
 	@Autowired
 	private TraderService trader_s;
@@ -138,9 +144,23 @@ public class BalanceController {
 		return mav;
 	}
 	
-	@RequestMapping(value="app/", method = RequestMethod.POST)
-	public @ResponseBody List<Creditcard> getAllCards(){
-		return null;
+	@RequestMapping(value="app/allcards.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Creditcard> getAllCards(Principal principal){
+		String username = principal.getName();
+		return ccs.getAllCards(username);
+	}
+	
+	@RequestMapping(value="app/addcard.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Creditcard> addCreditcard(
+			@RequestParam(value = "card_number") String cardNo,
+			Principal principal){
+		String username = principal.getName();
+		System.out.println("=======================================");
+		System.out.println(cardNo);
+		//int lid = trader_s.getTrader(username).getLid();
+		//ccs.addCard(card, lid);
+		//return ccs.getAllCards(username);
+		return new ArrayList<Creditcard>();
 	}
 	
 }
