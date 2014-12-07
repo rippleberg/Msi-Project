@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mercury.demand.persistence.model.Stock;
-import com.mercury.demand.persistence.model.Stocks;
 import com.mercury.demand.persistence.model.Trader;
+import com.mercury.demand.persistence.model.TraderStock;
 import com.mercury.demand.service.StocksService;
 import com.mercury.demand.service.TraderService;
 import com.mercury.demand.service.YahooFinance;
@@ -55,27 +55,29 @@ public class PortfolioController {
 	
 	@RequestMapping(value="/app/addSymbol.htm", method=RequestMethod.POST)
 	public ModelAndView addSymbol(HttpServletRequest request) {
+		System.out.println("Add symbol has been executed!!!!!!!!!!");
 		ModelAndView mav = new ModelAndView();
 		String sid = request.getParameter("symbol");
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Trader trader = trader_s.getTrader(username);
-		Set<Stocks> traderStocks=trader.getStocks();
-		Stocks stock = stock_s.getStockBySymbol(sid);
-		if(!traderStocks.contains(stock)) {
-			trader.addStock(stock);
+		Set<TraderStock> traderStocks=trader.getStocks();
+		TraderStock traderStock = new TraderStock(sid);
+		if(!traderStocks.contains(traderStock)) {
+			trader.addStock(traderStock);
+			trader_s.save(trader);
 		}
-		trader_s.save(trader);
 		mav.setViewName("/app/portfolio");
 		return mav;
 	}
 	
 	@RequestMapping(value="/app/showPortfolio.htm", method=RequestMethod.POST)
 	public @ResponseBody List<Stock> showPortfolio(HttpServletRequest request) {
+		System.out.println("ShowPortfolio has been executed!!!!!!!!!!");
 		List<Stock> stockList = new ArrayList<Stock>();
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Trader trader = trader_s.getTrader(username);
-		Set<Stocks> trader_stocks = trader.getStocks();
-		for(Stocks trader_stock:trader_stocks) {
+		List<TraderStock> trader_stocks = new ArrayList<TraderStock>(trader.getStocks());
+		for(TraderStock trader_stock:trader_stocks) {
 			Stock tempStock = new Stock(trader_stock.getSid());
 			stockList.add(tempStock);
 		}

@@ -6,20 +6,16 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name="TRADER")
 public class Trader implements Serializable{
@@ -39,12 +35,12 @@ public class Trader implements Serializable{
 	private Login login;
 	private Set<Creditcard> cards;
 	private Set<Trans> trans;
-	private Set<Stocks> stocks;
+	private Set<TraderStock> stocks;
 	
 	public Trader() {
 		cards = new HashSet<Creditcard>();
 		trans = new HashSet<Trans>();
-		stocks = new HashSet<Stocks>();
+		stocks = new HashSet<TraderStock>();
 	}
 	public Trader(String first_name, String last_name, String email) {
 		this();
@@ -182,23 +178,20 @@ public class Trader implements Serializable{
 		this.login = login;
 	}
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="lid")
 	@Cascade(CascadeType.SAVE_UPDATE)
-	@JoinTable(name="TRADER_STOCKS", 
-			joinColumns={@JoinColumn(name="LID", nullable=false, updatable=false)},
-			inverseJoinColumns={@JoinColumn(name="SID", nullable=false, updatable=false)})
-	public Set<Stocks> getStocks() {
+	public Set<TraderStock> getStocks() {
 		return stocks;
 	}
-	public void setStocks(Set<Stocks> stocks) {
+	public void setStocks(Set<TraderStock> stocks) {
 		this.stocks = stocks;
 	}
 	
-	public void addStock(Stocks stock) {
+	public void addStock(TraderStock stock) {
 		stocks.add(stock);
 	}
 	
-	public void removeStock(Stocks stock) {
+	public void removeStock(TraderStock stock) {
 		stocks.remove(stock);
 	}
 	

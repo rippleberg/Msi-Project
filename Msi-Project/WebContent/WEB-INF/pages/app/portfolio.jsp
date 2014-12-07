@@ -29,6 +29,50 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<script src="../js/jquery.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		setInterval("getMarketData()", 10000);	// Send request every 2 seconds
+	});
+	function getMarketData() {	
+		$.ajax({
+			url: "http://localhost:8080/Msi-Project/app/showPortfolio.htm",
+			type: "post",
+			dataType: "json",
+			success: showData
+		});	
+	}
+	function showData(data) {
+		var rows = "";
+		$("#stocks").empty();		
+		$(data).each(function(i, item) {
+			var sid = item.sid;
+			var name = item.name;
+			var price = item.price;
+			var change = item.change;
+			var percentChange = item.percentChange;
+			var high = item.high;
+			var low = item.low;
+			var volumn = item.volumn;
+			var color;
+			if (change>0) color = "green";
+			else if (change<0) color="red";
+			else color="black";
+			rows = "<tr>"+
+			       "<td>" +sid+ "</td>"+
+			       "<td>" +name +"</td>"+
+			       "<td>"+ price + "</td>"+
+			       "<td><font color=" + color + ">" + change + "</font></td>"+ 
+			       "<td><font color=" + color + ">"+ percentChange + "</font></td>"+
+			       "<td>"+ high +"</td>"+
+			       "<td>"+ low + "</td>"+
+			       "<td>" + volumn +"</td>"+
+			       "</tr>";
+			$(rows).appendTo("#stocks");
+		})		
+	}
+</script>
 </head>
 
 <body>
@@ -84,6 +128,51 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+        
+        <!-- Add Stock By SymbolName -->
+        <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Portfolio</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" action="${pageContext.request.contextPath}/app/addSymbol.htm" method="POST">
+                                	<input class="form-control" placeholder="Enter Stock Symbol">
+                                	<button type="submit" class="btn btn-default">Submit</button>
+                            		<button type="reset" class="btn btn-default">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+         </div>
+        
+        
+        <!-- Show Stock Information -->
+        <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Trader Portfolio</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped" id=stockList>
+                                        <thead>
+                                            <tr>
+                                                <th>Stock Id</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Change</th>
+                                                <th>Percent Change</th>
+                                                <th>High</th>
+                                                <th>Low</th>
+                                                <th>Volume</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="stocks"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+         </div>
 
         <div id="page-wrapper">
 

@@ -83,6 +83,7 @@ public class TransactionService {
 				tempTrans.setT_time(date);
 				tempTrans.setPrice(Double.parseDouble(strs[3]));
 				tempTrans.setQuantity(Integer.parseInt(strs[4]));
+				tempTrans.setT_type(strs[5]);
 				tempTrans.setT_status(strs[6]);
 				res.add(tempTrans);
 			}
