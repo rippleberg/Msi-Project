@@ -163,4 +163,11 @@ public class BalanceController {
 		return new ArrayList<Creditcard>();
 	}
 	
+	@RequestMapping(value="app/addAmount.htm", method = RequestMethod.POST)
+	public ModelAndView addAmount(HttpServletRequest request, Principal principal){
+		double balance = Double.parseDouble(request.getParameter("bal"));
+		ccs.addBalance(balance, principal.getName());
+		return new ModelAndView("redirect:portfolio.htm");
+	}
+	
 }

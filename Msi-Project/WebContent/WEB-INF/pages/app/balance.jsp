@@ -158,7 +158,7 @@
                     </div>
                     <div class="col-lg-8">
                     	<h2>Add Balance</h2>
-                    	<form class="form-horizontal" name="cardform" role="form" novalidate>
+                    	<form class="form-horizontal" action="addAmount.htm" method="POST" name="cardform" role="form" novalidate>
                     		<div id="creditcard-info" class="form-group" style="background:#77f">
                     			<div class="col-sm-1"></div><h3 class="col-sm-10">   Credit Card Information</h3>
                     			<div class="form-group">
@@ -201,7 +201,7 @@
                     	</form>
                     </div>
                     <!-- /.pay-content -->
-                    <div class="col-lg-4" ng-init="getAllCreditcards()">
+                    <!--  div class="col-lg-4" ng-init="getAllCreditcards()">
                     	<h2>Saved Credit Cards</h2>
                     	<table class="table table-hover" id="allccards">
                     		<thead><tr><th>Number</th></tr></thead>
@@ -211,7 +211,7 @@
                     			</tr>
                     		</tbody>
                     	</table>
-                    </div>
+                    </div>-->
                     <!-- /.creditcard-content -->
                 </div>
                 <!-- /.row -->

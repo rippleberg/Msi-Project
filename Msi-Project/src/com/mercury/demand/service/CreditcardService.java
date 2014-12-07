@@ -48,4 +48,9 @@ public class CreditcardService {
 		}
 		creditcardDao.save(newcard);
 	}
+	
+	public void addBalance(double balance, String username){
+		Trader trader = loginDao.findBy("username", username).getTrader();
+		trader.setBalance(trader.getBalance() + balance);
+	}
 }
