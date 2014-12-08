@@ -160,6 +160,7 @@
                         </ol>
                     </div>
                     <div class="col-lg-8">
+                    	<h2>Your balance: ${bal}</h2>
                     	<h2>Add Balance</h2>
                     	<form class="form-horizontal" action="addAmount.htm" method="POST" name="cardform" role="form" novalidate>
                     		<div id="creditcard-info" class="form-group" style="background:#77f">
@@ -178,14 +179,14 @@
                     			</div>
                     			<div class="form-group">                    			
                     			<label for="ex-year" class="col-sm-2 control-label">Expire Time:</label>
-                    				<div class="col-sm-2"  ng-class="{ 'has-error': cardform.exyy.$invalid && cardform.exyy.$dirty }">
-                    					<input type="text" class="form-control" id="ex-year" 
-                    						placeholder="yy" name="exyy" ng-model="exyy"
-                    						ng-pattern="/^(20)?[0-9][0-9]$/" required/></div>
                     				<div class="col-sm-2"  ng-class="{ 'has-error': cardform.exmm.$invalid && cardform.exmm.$dirty }">
                     					<input type="text" class="form-control" id="ex-month" 
                     						placeholder="mm" name="exmm" ng-model="exmm"
                     						ng-pattern="/^(([1-9])|(0[1-9])|(1[1-2]))$/" required/></div>
+                    				<div class="col-sm-2"  ng-class="{ 'has-error': cardform.exyy.$invalid && cardform.exyy.$dirty }">
+                    					<input type="text" class="form-control" id="ex-year" 
+                    						placeholder="yy" name="exyy" ng-model="exyy"
+                    						ng-pattern="/^(20)?[0-9][0-9]$/" required/></div>
                     			</div>                    			
                     			<div class="form-group" ng-class="{ 'has-error': cardform.holderName.$invalid && cardform.holderName.$dirty }">
                     				<label for="cc-name" class="col-sm-2 control-label">Name:</label>
