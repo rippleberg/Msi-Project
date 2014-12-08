@@ -37,6 +37,10 @@ public class TransactionController {
 	@RequestMapping(value="app/transaction.htm", method=RequestMethod.GET)
 	public ModelAndView viewTransaction() {
 		ModelAndView mav = new ModelAndView();
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Trader trader = trader_s.getTrader(username);
+		mav.addObject("shownName", 
+				trader.getFirst_name());
 		mav.setViewName("app/transaction");
 		return mav;
 	}
@@ -53,7 +57,6 @@ public class TransactionController {
 		double balance = trader.getBalance()-quantity*price-5.00;
 		//Add transaction
 		Trans tran = new Trans(sid, new Date(), price, quantity, "B", "P");
-		
 		TraderStock traderStock = trader.getTraderStock(sid);
 		if(traderStock==null) traderStock = new TraderStock(sid);
 		traderStock.setPrice(price);
@@ -86,6 +89,7 @@ public class TransactionController {
 		
 		//Add Transaction
 		Trans tran = new Trans(sid, new Date(), price, quantity, "S", "P");
+		tran.setLid(trader.getLid());
 		TraderStock traderStock = trader.getTraderStock(sid);
 		if(traderStock==null||traderStock.getQuantity()<quantity) {
 			tran.setT_status("D");

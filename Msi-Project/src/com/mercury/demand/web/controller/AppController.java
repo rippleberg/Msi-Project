@@ -94,6 +94,10 @@ public class AppController {
 	@RequestMapping("/dashboard.htm")
 	public ModelAndView dashboard(){
 		ModelAndView mav = new ModelAndView();
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Trader trader = trader_s.getTrader(username);
+		mav.addObject("shownName", 
+				trader.getFirst_name());
 		mav.setViewName("app/dashboard");
 		return mav;
 	}

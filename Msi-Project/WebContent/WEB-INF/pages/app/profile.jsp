@@ -95,74 +95,40 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tables
+                            Profile
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="${pageContext.request.contextPath}/app/dashboard.htm">MarketData</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-table"></i> Transaction
+                                <i class="fa fa-table"></i> Profile
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <!--  <div class="row">
-                    <div>
-                        <h2>Transaction History</h2>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Stock ID</th>
-                                        <th>Time</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Type</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="transactions">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- /.row -->
-                
                 <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Buy Stock</h3>
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> View Profile</h3>
                             </div>
                             <div class="panel-body">
-                                <form role="form" action="${pageContext.request.contextPath}/app/buyStock.htm" method="post">
-                                	<input class="form-control" name="buySymbol" placeholder="Enter Stock Symbol">
-                                	<input class="form-control" name="buyQuantity" placeholder="Enter Stock Quantity">
-                                	<button type="submit" class="btn btn-default">Submit</button>
-                            		<button type="reset" class="btn btn-default">Reset</button>
-                                </form>
+                            	<h3>First Name:${firstName}</h3>
+                            	<h3>Last  Name:${lastName}</h3>
+                            	<h3>Phone:     ${phone}</h3>
+                            	<h3>Email:     ${email}</h3>
+                            	<h3>Address:   ${address}</h3>
+                            	<h3>State:     ${state}</h3>
+                            	<h3>City:      ${city}</h3>
+                            	<h3>Zipcode:   ${zipcode}</h3>
+                            	<h3>Balance:   ${balance}</h3>
                             </div>
                         </div>
          		</div>
-         		
-         		<div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Sell Stock</h3>
-                            </div>
-                            <div class="panel-body">
-                                <form role="form" action="${pageContext.request.contextPath}/app/sellStock.htm" method="post">
-                                	<input class="form-control" name="sellSymbol" placeholder="Enter Stock Symbol">
-                                	<input class="form-control" name="sellQuantity" placeholder="Enter Stock Quantity">
-                                	<button type="submit" class="btn btn-default">Submit</button>
-                            		<button type="reset" class="btn btn-default">Reset</button>
-                                </form>
-                            </div>
-                        </div>
-         		</div>
+                <!-- /.row -->
+                
+
 
             </div>
             <!-- /.container-fluid -->

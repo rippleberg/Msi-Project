@@ -31,10 +31,12 @@
 
 <script src="../js/jquery.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://www.google.com/jsapi"></script>
 <script>
 	$(document).ready(function() {
 		setInterval("getMarketData()", 10000);	// Send request every 2 seconds
 		getProperty();
+		drawChart();
 	});
 	function getMarketData() {	
 		$.ajax({
@@ -97,6 +99,58 @@
 		    $(rows).appendTo("#properties");
 		})
 	}
+	
+	/***********************Draw Google Pie-Char************************************/
+	// Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    //draws it.
+  function drawChart() {
+    // Create the data table.
+    //var userID = "<c:out value="${trader.userID}"/>";
+    var pieTable = new google.visualization.DataTable();
+    var barTable = new google.visualization.DataTable();
+    pieTable.addColumn('string', 'sid');
+    pieTable.addColumn('number', 'value');
+	barTable.addColumn('string', 'sid');
+    barTable.addColumn('number', 'bought');
+    barTable.addColumn('number', 'sold');
+    $.ajax({
+			url: "http://localhost:8080/Msi-Project/app/drawChart.htm",
+			type: "post",
+			dataType: "json",
+			async:false,
+			success: function(data) {
+				$(data).each(function(i, item) {
+					var sid = item.sid;
+					var value = item.price*item.quantity;
+					var bought = item.totalBought;
+					var sold = item.totalSold;
+					pieTable.addRow([sid, value]);
+					barTable.addRow([sid, bought, sold]);
+				});
+			},
+		error: function(msg) {
+			alert("Error happened, please try again later.");
+		}
+		});
+    //Set chart options
+    var options = {'title':'Owned Stock Values',
+                   'width':400,
+                   'height':300};
+    var options1 = {'title':'Bought and Sold',
+            'width':400,
+            'height':300};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('pie'));
+    var chart1 = new google.visualization.ColumnChart(document.getElementById('bar'));
+    chart.draw(pieTable, options);
+    chart1.draw(barTable, options1);
+  }
 </script>
 </head>
 
@@ -119,13 +173,13 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>John Smith<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>${shownName}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            <a href="${pageContext.request.contextPath}/app/profile.htm"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="${pageContext.request.contextPath}/app/settings.htm"><i class="fa fa-fw fa-gear"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -246,6 +300,19 @@
                                         <tbody id="properties"></tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+         </div>
+         
+         <!-- Show Google Chart -->
+         <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Stock Info Chart</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="pie"></div>
+                                <div id="bar"></div>
                             </div>
                         </div>
          </div>
