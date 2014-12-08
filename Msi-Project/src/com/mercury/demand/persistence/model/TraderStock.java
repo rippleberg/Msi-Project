@@ -59,7 +59,11 @@ public class TraderStock {
 	
 	@Override
 	public int hashCode() {
-		return sid.hashCode();
+		if(sid==null) {
+			return 0;
+		}else {
+			return sid.hashCode();
+		}
 	}
 	
 	@Override
@@ -68,6 +72,6 @@ public class TraderStock {
 			return false;
 		}
 		TraderStock ts = (TraderStock) obj;
-		return this.sid.equals(ts.getSid());
+		return this.sid==null?false:this.sid.equals(ts.getSid());
 	}
 }

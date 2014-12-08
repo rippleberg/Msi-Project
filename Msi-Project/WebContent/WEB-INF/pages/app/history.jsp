@@ -30,6 +30,7 @@
     <![endif]-->
 <script src="../js/jquery.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
 <script>
 	$(document).ready(function() {
 		getTransactionHistory();
@@ -47,16 +48,15 @@
 		var rows = "";
 		$("#transactions").empty();		
 		$(data).each(function(i, item) {
-			alert("I have been executed!!!")
 			var sid = item.sid;
-			var time = item.name;
+			var time = new Date(item.t_time);
 			var price = item.price;
 			var quantity = item.quantity;
-			var type = item.type;
-			var status = item.status;
+			var type = item.t_type;
+			var status = item.t_status;
 			rows = "<tr>"+
 			       "<td>" + sid + "</td>" +
-			       "<td>" + name + "</td>" +
+			       "<td>" + time + "</td>" +
 			       "<td>" + price + "</td>" +
 			       "<td>" + quantity + "</td>" +
 			       "<td>" + type + "</td>" +
@@ -117,6 +117,9 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/app/balance.htm"><i class="fa fa-fw fa-file"></i> Balance</a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/app/transaction.htm"><i class="fa fa-fw fa-file"></i> Transaction</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -130,11 +133,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tables
+                            History
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">MarketData</a>
+                                <i class="fa fa-dashboard"></i>  <a href="${pageContext.request.contextPath}/app/dashboard.htm">MarketData</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-table"></i> History

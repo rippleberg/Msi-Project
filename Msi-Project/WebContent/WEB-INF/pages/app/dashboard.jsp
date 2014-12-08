@@ -128,6 +128,9 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/app/balance.htm"><i class="fa fa-fw fa-file"></i> Balance</a>
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/app/transaction.htm"><i class="fa fa-fw fa-file"></i> Transaction</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

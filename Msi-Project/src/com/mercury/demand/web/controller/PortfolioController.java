@@ -17,8 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mercury.demand.persistence.model.Stock;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.persistence.model.TraderStock;
-import com.mercury.demand.service.StocksService;
+import com.mercury.demand.persistence.model.TraderStockInfo;
 import com.mercury.demand.service.TraderService;
+import com.mercury.demand.service.TraderStockService;
 import com.mercury.demand.service.YahooFinance;
 
 @Controller
@@ -36,13 +37,13 @@ public class PortfolioController {
 	}
 	
 	@Autowired
-	private StocksService stock_s;
+	private TraderStockService stock_s;
 	
-	public StocksService getStock_s() {
+	public TraderStockService getStock_s() {
 		return stock_s;
 	}
 
-	public void setStock_s(StocksService stock_s) {
+	public void setStock_s(TraderStockService stock_s) {
 		this.stock_s = stock_s;
 	}
 
@@ -60,11 +61,14 @@ public class PortfolioController {
 		String sid = request.getParameter("symbol");
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Trader trader = trader_s.getTrader(username);
+		System.out.println(trader.getFirst_name()+"\t"+trader.getLast_name()+"!!!!!!!!!!!!!!!!!");
 		Set<TraderStock> traderStocks=trader.getStocks();
 		TraderStock traderStock = new TraderStock(sid);
+		traderStock.setLid(trader.getLid());
 		if(!traderStocks.contains(traderStock)) {
-			trader.addStock(traderStock);
-			trader_s.save(trader);
+			traderStock.setPrice(0.0);
+			traderStock.setQuantity(0);
+			stock_s.save(traderStock);
 		}
 		mav.setViewName("/app/portfolio");
 		return mav;
@@ -83,5 +87,21 @@ public class PortfolioController {
 		}
 		YahooFinance.marketData(stockList);
 		return stockList;
+	}
+	
+	@RequestMapping(value="/app/showProperty.htm", method=RequestMethod.POST)
+	public @ResponseBody List<TraderStockInfo> showProperty(HttpServletRequest request) {
+		System.out.println("Show Property has been executed?????????????????");
+		List<TraderStockInfo> infoList = new ArrayList<TraderStockInfo>();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Trader trader = trader_s.getTrader(username);
+		List<TraderStock> stockList = new ArrayList<TraderStock>(trader.getStocks());
+		for(TraderStock stock:stockList) {
+			TraderStockInfo info = new TraderStockInfo(stock.getSid(), stock.getPrice(), stock.getQuantity());
+			if(info.getQuantity()>0) {
+				infoList.add(info);
+			}
+		}
+		return infoList;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -136,7 +137,7 @@ public class Trader implements Serializable{
 		this.active = active;
 	}
 	
-	@OneToMany(mappedBy="lid")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="lid")
 	@Cascade(CascadeType.SAVE_UPDATE)
 	public Set<Creditcard> getCards() {
 		return cards;
@@ -145,7 +146,7 @@ public class Trader implements Serializable{
 		this.cards = cards;
 	}
 	
-	@OneToMany(mappedBy="lid")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="lid")
 	@Cascade(CascadeType.SAVE_UPDATE)
 	public Set<Trans> getTrans() {
 		return trans;
@@ -178,7 +179,7 @@ public class Trader implements Serializable{
 		this.login = login;
 	}
 	
-	@OneToMany(mappedBy="lid")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="lid")
 	@Cascade(CascadeType.SAVE_UPDATE)
 	public Set<TraderStock> getStocks() {
 		return stocks;
@@ -189,10 +190,20 @@ public class Trader implements Serializable{
 	
 	public void addStock(TraderStock stock) {
 		stocks.add(stock);
+		stock.setLid(lid);
 	}
 	
 	public void removeStock(TraderStock stock) {
 		stocks.remove(stock);
+	}
+	
+	public TraderStock getTraderStock(String sid) {
+		for(TraderStock stock:stocks) {
+			if(stock.getSid().equals(sid)) {
+				return stock;
+			}
+		}
+		return null;
 	}
 	
 }

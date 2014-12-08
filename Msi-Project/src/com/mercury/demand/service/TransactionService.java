@@ -35,6 +35,7 @@ public class TransactionService {
 	public void makeTransaction(Trader trader, Trans tran) {
 		try {
 			File file = new File("transactions.csv");
+			System.out.println("File transactions.csv has been executed!!!!!!!!!!!!!!!!!!");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
 			writer.append(trader.getLid()+",").append(tran.getSid()+",").append(tran.getT_time()+",")
 			.append(tran.getPrice()+",").append(tran.getQuantity()+",").append(tran.getT_type()+",").append(tran.getT_status());
@@ -71,15 +72,23 @@ public class TransactionService {
 		List<Trans> res = new ArrayList<Trans>();
 		try {
 			File file = new File("transactions.csv");
-			if(!file.exists()) return null;
+			if(!file.exists()) return res;
+			
+			System.out.println("getUncommittedTrans has been executed!!!!!!!!!!!!!!!!!!!!!");
+			
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			while(reader.ready()) {
 				String str = reader.readLine();
 				String[] strs = str.split(",");
 				Trans tempTrans = new Trans();
 				tempTrans.setSid(strs[1]);
-				SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
-				Date date = formatter.parse(strs[2]);
+				SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+				Date date = null;
+				try {
+					date = formatter.parse(strs[2]);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 				tempTrans.setT_time(date);
 				tempTrans.setPrice(Double.parseDouble(strs[3]));
 				tempTrans.setQuantity(Integer.parseInt(strs[4]));
@@ -95,6 +104,7 @@ public class TransactionService {
 	}
 	
 	public List<Trans> getAllCommittedTrans(){
+		System.out.println("getCommittedTrans has been executed!!!!!!!!!!!!!!!!!!!!!");
 		return transDao.findAll();
 	}
 	
@@ -110,8 +120,13 @@ public class TransactionService {
 				Trader tempTrader = trader_s.getTrader(Integer.parseInt(strs[0]));
 				Trans tempTrans = new Trans();
 				tempTrans.setSid(strs[1]);
-				SimpleDateFormat formatter = new SimpleDateFormat("EEEE, MMM dd, yyyy HH:mm:ss a");
-				Date date = formatter.parse(strs[2]);
+				SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+				Date date = null;
+				try {
+					date = formatter.parse(strs[2]);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 				tempTrans.setT_time(date);
 				tempTrans.setPrice(Double.parseDouble(strs[3]));
 				tempTrans.setQuantity(Integer.parseInt(strs[4]));

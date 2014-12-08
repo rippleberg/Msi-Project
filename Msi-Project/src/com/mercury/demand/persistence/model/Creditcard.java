@@ -91,4 +91,14 @@ public class Creditcard implements Serializable{
 		this.lid = lid;
 	}
 	
+	@Override
+	public boolean equals(Object obj){
+		if(obj == null) return false;
+		if(this == obj) return true;
+		if(!(obj instanceof Creditcard)) return false;
+		Creditcard another = (Creditcard)obj;
+		return this.card_number == another.getCard_number()
+				&& this.lid == another.getLid();
+	}
+	
 }

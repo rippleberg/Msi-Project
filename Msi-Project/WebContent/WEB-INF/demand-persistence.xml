@@ -67,4 +67,7 @@
     <bean id="stocksDao" class="com.mercury.common.db.HibernateDao" scope="prototype">
     	<constructor-arg value="com.mercury.demand.persistence.model.Stocks" />
     </bean>
+    <bean id="traderStockDao" class="com.mercury.common.db.HibernateDao" scope="prototype">
+    	<constructor-arg value="com.mercury.demand.persistence.model.TraderStock" />
+    </bean>
 </beans>

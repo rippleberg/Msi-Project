@@ -2,7 +2,7 @@ package com.mercury.demand.web.controller;
 
 
 import java.security.Principal;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mercury.demand.persistence.model.Creditcard;
 import com.mercury.demand.persistence.model.Trader;
 import com.mercury.demand.persistence.model.Trans;
+import com.mercury.demand.service.CreditcardService;
 import com.mercury.demand.service.RealTimePriceService;
 import com.mercury.demand.service.StocksService;
 import com.mercury.demand.service.TraderService;
@@ -25,6 +27,9 @@ import com.mercury.demand.service.TransactionService;
 
 @Controller
 public class BalanceController {
+	
+	@Autowired
+	CreditcardService ccs;
 	
 	@Autowired
 	private TraderService trader_s;
@@ -81,44 +86,6 @@ public class BalanceController {
 		return mav;
 	}
 	
-	@RequestMapping(value="app/buyStock.htm", method=RequestMethod.POST)
-	public ModelAndView buyStock(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		String sid = request.getParameter("symbol");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		String username=SecurityContextHolder.getContext().getAuthentication().getName();
-		Trader trader = trader_s.getTrader(username);
-		double price = price_s.getRealTimePrice(sid);
-		double balance = trader.getBalance()-quantity*price-5.00;
-		Trans tran = new Trans(sid, new Date(), price, quantity, "B", "P");
-		if(balance<0) {
-			tran.setT_status("D");
-		}else {
-			trader.setBalance(balance);
-		}
-		trans_s.makeTransaction(trader, tran);
-		trader_s.save(trader);
-		mav.setViewName("/app/balance");
-		return mav;
-	}
-	
-	@RequestMapping(value="app/sellStock.htm", method=RequestMethod.POST)
-	public ModelAndView sellStock(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		String sid = request.getParameter("symbol");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		String username=SecurityContextHolder.getContext().getAuthentication().getName();
-		Trader trader = trader_s.getTrader(username);
-		double price = price_s.getRealTimePrice(sid);
-		double balance = trader.getBalance()+quantity*price-5.00;
-		Trans tran = new Trans(sid, new Date(), price, quantity, "S", "P");
-		trader.setBalance(balance);
-		trans_s.makeTransaction(trader, tran);
-		trader_s.save(trader);
-		mav.setViewName("/app/balance");
-		return mav;
-	}
-	
 	@RequestMapping(value="app/addBalance.htm", method=RequestMethod.POST)
 	public ModelAndView addBalance(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
@@ -138,9 +105,30 @@ public class BalanceController {
 		return mav;
 	}
 	
-	@RequestMapping(value="app/", method = RequestMethod.POST)
-	public @ResponseBody List<Creditcard> getAllCards(){
-		return null;
+	@RequestMapping(value="app/allcards.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Creditcard> getAllCards(Principal principal){
+		String username = principal.getName();
+		return ccs.getAllCards(username);
+	}
+	
+	@RequestMapping(value="app/addcard.htm", method = RequestMethod.POST)
+	public @ResponseBody List<Creditcard> addCreditcard(
+			@RequestParam(value = "card_number") String cardNo,
+			Principal principal){
+		String username = principal.getName();
+		System.out.println("=======================================");
+		System.out.println(cardNo);
+		//int lid = trader_s.getTrader(username).getLid();
+		//ccs.addCard(card, lid);
+		//return ccs.getAllCards(username);
+		return new ArrayList<Creditcard>();
+	}
+	
+	@RequestMapping(value="app/addAmount.htm", method = RequestMethod.POST)
+	public ModelAndView addAmount(HttpServletRequest request, Principal principal){
+		double balance = Double.parseDouble(request.getParameter("bal"));
+		ccs.addBalance(balance, principal.getName());
+		return new ModelAndView("redirect:portfolio.htm");
 	}
 	
 }
