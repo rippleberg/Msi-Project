@@ -107,7 +107,12 @@ $(document).ready(function(){
 	});
 	
 var md5Encrypt = function(form){
-	//alert($("#r_password"));
+	$("#r_password").val((md5($("#r_password").val())));
+	return true;
+}
+var loginEncrypt = function(form){
+	$("#j_password").val(md5($("#j_password").val()));
+	return true;
 }
 </script>
   
@@ -220,7 +225,7 @@ var md5Encrypt = function(form){
 			<p>The username or password supplied is incorrect</p>
 		</div>
 			
-       <form class="navbar-form navbar-right" action="<c:url value='j_spring_security_check'/>" method="POST" id="login-form">
+       <form class="navbar-form navbar-right" action="<c:url value='j_spring_security_check'/>" onSubmit="loginEncrypt(this)" method="POST" id="login-form">
         <div class="form-group">
           <input type="text" placeholder="Username" class="form-control" name="j_username" id="j_username" />
         </div>
@@ -653,7 +658,7 @@ var md5Encrypt = function(form){
 
       analytics_track("/explore");
   </script>
-
+  <script src="<c:url value='/js/md5.min.js'/>"></script>
 
 </body>
 </html>
