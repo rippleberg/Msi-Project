@@ -78,7 +78,7 @@ public class SecurityController {
 		trader.setHome_state(home_state);
 		rs.register(login, trader);
 		mailApp.getSimpleMailMessage().setTo(email);
-		mailApp.sendMail(lastname, "This is a welcome email");
+		mailApp.sendMail(lastname, "Hello, "+firstname+": \nWelcome to Yahoo Finance!");
 		return "security/index";
 	}
 	
