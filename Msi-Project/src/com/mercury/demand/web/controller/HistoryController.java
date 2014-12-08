@@ -30,6 +30,10 @@ public class HistoryController {
 	@RequestMapping(value="/app/history.htm", method = RequestMethod.GET)
 	public ModelAndView ViewHistory(){
 		ModelAndView mav = new ModelAndView();
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Trader trader = trader_s.getTrader(username);
+		mav.addObject("shownName", 
+				trader.getFirst_name());
 		mav.setViewName("/app/history");
 		return mav;
 	}
@@ -51,8 +55,10 @@ public class HistoryController {
 			}
 		}
 		for(Trans tran:csvList) {
-			TransInfo tranInfo = new TransInfo(tran.getSid(), tran.getT_time(), tran.getPrice(), tran.getQuantity(), tran.getT_type(), tran.getT_status());
-			transInfoList.add(tranInfo);
+			if(tran.getLid()==trader.getLid()) {
+				TransInfo tranInfo = new TransInfo(tran.getSid(), tran.getT_time(), tran.getPrice(), tran.getQuantity(), tran.getT_type(), tran.getT_status());
+				transInfoList.add(tranInfo);
+			}
 		}
 		return transInfoList;
 	}

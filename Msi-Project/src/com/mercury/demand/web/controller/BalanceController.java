@@ -82,7 +82,7 @@ public class BalanceController {
 		String username = principal.getName();
 		Trader trader = trader_s.getTrader(username);
 		mav.addObject("shownName", 
-				trader.getFirst_name() + " " + trader.getLast_name());
+				trader.getFirst_name());
 		mav.addObject("bal", trader.getBalance());
 		return mav;
 	}

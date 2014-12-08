@@ -81,6 +81,7 @@ public class TransactionService {
 				String str = reader.readLine();
 				String[] strs = str.split(",");
 				Trans tempTrans = new Trans();
+				tempTrans.setLid(Integer.parseInt(strs[0]));
 				tempTrans.setSid(strs[1]);
 				SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 				Date date = null;
