@@ -105,6 +105,10 @@ $(document).ready(function(){
 	    $(this).css("background-color","#ffffff");
 	  });
 	});
+	
+var md5Encrypt = function(form){
+	//alert($("#r_password"));
+}
 </script>
   
 </head>
@@ -424,7 +428,7 @@ $(document).ready(function(){
           <h4 class="modal-title" id="myModalLabel">Forms</h4>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal" role="form" action="register.htm" method="POST" id="register-form">
+          <form class="form-horizontal" role="form" onSubmit="md5Encrypt(this)" action="register.htm" method="POST" id="register-form">
           <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
           <div class="form-group">
               <label for="r_username" class="col-sm-2 control-label">Username:</label>
