@@ -59,10 +59,10 @@ public class TransactionController {
 		Trans tran = new Trans(sid, new Date(), price, quantity, "B", "P");
 		TraderStock traderStock = trader.getTraderStock(sid);
 		if(traderStock==null) traderStock = new TraderStock(sid);
-		traderStock.setPrice(price);
-		traderStock.setQuantity(traderStock.getQuantity()+quantity);
-		trader.removeStock(traderStock);
-		trader.addStock(traderStock);
+		//traderStock.setPrice(price);
+		//traderStock.setQuantity(traderStock.getQuantity()+quantity);
+		//trader.removeStock(traderStock);
+		//trader.addStock(traderStock);
 		//Update trader balance
 		if(balance<0) {
 			tran.setT_status("D");
@@ -71,6 +71,8 @@ public class TransactionController {
 			traderStock.setPrice(price);
 			traderStock.setQuantity(traderStock.getQuantity()+quantity);
 		}
+		trader.removeStock(traderStock);
+		trader.addStock(traderStock);
 		trans_s.makeTransaction(trader, tran);
 		trader_s.save(trader);
 		mav.setViewName("/app/history");

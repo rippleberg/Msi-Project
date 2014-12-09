@@ -79,7 +79,7 @@ public class SecurityController {
 		rs.register(login, trader);
 		mailApp.getSimpleMailMessage().setTo(email);
 		mailApp.sendMail(lastname, "Hello, "+firstname+": \nWelcome to Yahoo Finance!");
-		return "security/index";
+		return "security/success";
 	}
 	
 }

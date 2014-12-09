@@ -129,7 +129,7 @@ public class BalanceController {
 	public ModelAndView addAmount(HttpServletRequest request, Principal principal){
 		double balance = Double.parseDouble(request.getParameter("bal"));
 		ccs.addBalance(balance, principal.getName());
-		return new ModelAndView("redirect:portfolio.htm");
+		return new ModelAndView("redirect:balance.htm");
 	}
 	
 }
