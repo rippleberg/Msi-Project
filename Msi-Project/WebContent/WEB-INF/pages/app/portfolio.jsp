@@ -138,12 +138,8 @@
 		}
 		});
     //Set chart options
-    var options = {'title':'Owned Stock Values',
-                   'width':400,
-                   'height':300};
-    var options1 = {'title':'Bought and Sold',
-            'width':400,
-            'height':300};
+    var options = {'title':'Owned Stock Values', 'width':400, 'height':300};
+    var options1 = {'title':'Bought and Sold', 'width':400, 'height':300};
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('pie'));
@@ -173,7 +169,7 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>${shownName}<b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> ${shownName}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="${pageContext.request.contextPath}/app/profile.htm"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -244,9 +240,9 @@
                             </div>
                             <div class="panel-body">
                                 <form role="form" action="${pageContext.request.contextPath}/app/addSymbol.htm" method="post">
-                                	<input class="form-control" name="symbol" placeholder="Enter Stock Symbol">
-                                	<button type="submit" class="btn btn-default">Submit</button>
-                            		<button type="reset" class="btn btn-default">Reset</button>
+                                	<input class="form-control" name="symbol" placeholder="Enter Stock Symbol"><br>
+                                	<button type="submit" class="btn btn-success"><i class="fa fa-wifi"></i> Submit</button>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-binoculars"></i> Reset</button>
                                 </form>
                             </div>
                         </div>
@@ -310,10 +306,13 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Stock Info Chart</h3>
                             </div>
-                            <div class="panel-body">
-                                <div id="pie"></div>
-                                <div id="bar"></div>
+                            <div class="row">
+                            	<div class="panel-body">
+                                	<div id="pie"></div>
+                                	<div id="bar"></div>
+                            	</div>
                             </div>
+                            
                         </div>
          </div>
 

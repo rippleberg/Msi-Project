@@ -95,74 +95,36 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tables
+                            Settings
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="${pageContext.request.contextPath}/app/dashboard.htm">MarketData</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-table"></i> Transaction
+                                <i class="fa fa-table"></i> Settings
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-
-                <!--  <div class="row">
-                    <div>
-                        <h2>Transaction History</h2>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Stock ID</th>
-                                        <th>Time</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Type</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="transactions">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div> -->
+				 <h2>Change Profile</h2>
+                        <div class="panel-body">
+                                <form action="${pageContext.request.contextPath}/app/changeProfile.htm" id="settingsForm" role="form" method="post">
+                                	<input type="text" class="form-control" name="r_firstname" id="r_firstname" placeholder="Enter Firstname"><br>
+                                	<input type="text" class="form-control" name="r_lastname" id="r_lastname" placeholder="Enter Lastname"><br>
+                                	<input type="email" class="form-control" name="r_email" id="r_email" placeholder="Email"><br>
+                                	<input type="text" class="form-control" name="r_address" id="r_address" placeholder="Enter address"><br>
+                                	<input type="text" class="form-control" name="r_city" id="r_city" placeholder="Enter city"><br>
+                                	<input type="text" class="form-control" name="r_state" id="r_state" placeholder="Enter state"><br>
+                                	<input type="text" class="form-control" name="r_zipcode" id="r_zipcode" placeholder="Enter Zipcode"><br>
+                                	<input type="text" class="form-control" name="r_phone" id="r_phone" placeholder="Enter phone"><br>
+                                	<button type="submit" class="btn btn-primary" name="showTransaction" value="bySymbol"><i class="fa fa-search"></i> Confirm</button><p>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Reset</button>
+                                </form>
+                                
+                         </div>
                 <!-- /.row -->
-                
-                <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Buy Stock</h3>
-                            </div>
-                            <div class="panel-body">
-                                <form role="form" action="${pageContext.request.contextPath}/app/buyStock.htm" method="post">
-                                	<input class="form-control" name="buySymbol" placeholder="Enter Stock Symbol">
-                                	<input class="form-control" name="buyQuantity" placeholder="Enter Stock Quantity">
-                                	<button type="submit" class="btn btn-default">Submit</button>
-                            		<button type="reset" class="btn btn-default">Reset</button>
-                                </form>
-                            </div>
-                        </div>
-         		</div>
-         		
-         		<div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Sell Stock</h3>
-                            </div>
-                            <div class="panel-body">
-                                <form role="form" action="${pageContext.request.contextPath}/app/sellStock.htm" method="post">
-                                	<input class="form-control" name="sellSymbol" placeholder="Enter Stock Symbol">
-                                	<input class="form-control" name="sellQuantity" placeholder="Enter Stock Quantity">
-                                	<button type="submit" class="btn btn-default">Submit</button>
-                            		<button type="reset" class="btn btn-default">Reset</button>
-                                </form>
-                            </div>
-                        </div>
-         		</div>
 
             </div>
             <!-- /.container-fluid -->

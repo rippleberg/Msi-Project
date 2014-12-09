@@ -34,7 +34,83 @@
 <script>
 	$(document).ready(function() {
 		getTransactionHistory();
-		//alert("I have been executed!!!")
+		
+		//Show history by Stock symbol
+		$('#symbolForm').submit(function() {
+		    $.ajax({
+		    	url: "http://localhost:8080/Msi-Project/app/showHistoryBySymbol.htm",
+		        type: "post",
+		        data: {symbol:$("#stockSymbol").val()},
+		        dataType: 'json',
+		        success: showData,
+		        error: function (error) {
+		            alert(error);
+		        }
+		    });
+		    return false;
+		});
+		
+		
+		//Show history by Stock type
+		$('#typeForm').submit(function() {
+		    $.ajax({
+		    	url: "http://localhost:8080/Msi-Project/app/showHistoryByType.htm",
+		        type: "post",
+		        data: {type:$("#stockType").val()},
+		        dataType: 'json',
+		        success: showData,
+		        error: function (error) {
+		            alert(error);
+		        }
+		    });
+		    return false;
+		});
+		
+		//Show history by Stock price
+		$('#priceForm').submit(function() {
+		    $.ajax({
+		    	url: "http://localhost:8080/Msi-Project/app/showHistoryByPrice.htm",
+		        type: "post",
+		        data: {priceHigh:$("#stockHigh").val(), priceLow:$("#stockLow").val()},
+		        dataType: 'json',
+		        success: showData,
+		        error: function (error) {
+		            alert(error);
+		        }
+		    });
+		    return false;
+		});
+		
+		//Show history by Stock volume
+		$('#volumeForm').submit(function() {
+		    $.ajax({
+		    	url: "http://localhost:8080/Msi-Project/app/showHistoryByVolume.htm",
+		        type: "post",
+		        data: {volumeHigh:$("#vHigh").val(), volumeLow:$("#vLow").val()},
+		        dataType: 'json',
+		        success: showData,
+		        error: function (error) {
+		            alert(error);
+		        }
+		    });
+		    return false;
+		});
+		
+		//Show history by Stock status
+		$('#statusForm').submit(function() {
+		    $.ajax({
+		    	url: "http://localhost:8080/Msi-Project/app/showHistoryByStatus.htm",
+		        type: "post",
+		        data: {status:$("#stockStatus").val()},
+		        dataType: 'json',
+		        success: showData,
+		        error: function (error) {
+		            alert(error);
+		        }
+		    });
+		    return false;
+		});
+		
 	});
 	function getTransactionHistory() {	
 		$.ajax({
@@ -65,6 +141,9 @@
 			$(rows).appendTo("#transactions");
 		})		
 	}
+	
+	
+	
 </script>
 </head>
 
@@ -150,6 +229,7 @@
                 <div class="row">
                     <div>
                         <h2>Transaction History</h2>
+                        
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
@@ -166,6 +246,48 @@
                                 </tbody>
                             </table>
                         </div>
+                        <br>
+                        <br>
+                        <br>
+                        <h2>Refined Search</h2>
+                        <div class="panel-body">
+                                <form id="symbolForm" role="form">
+                                	<input class="form-control" id="stockSymbol" name="symbol" placeholder="Enter Stock Symbol"><br>
+                                	<button type="submit" class="btn btn-primary" name="showTransaction" value="bySymbol"><i class="fa fa-search"></i> Search</button>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Reset</button>
+                                </form>
+                                <br><br>
+                                <form id="typeForm" role="form">
+                                	<input class="form-control" id="stockType" name="type" placeholder="Enter Transaction Type"><br>
+                                	<button type="submit" class="btn btn-success" name="showTransaction" value="byType"><i class="fa fa-search"></i> Search</button>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Reset</button>
+                                </form>
+                                <br><br>
+                                <form id="priceForm" role="form">
+                                	<input class="form-control" id="stockHigh" name="priceHigh" placeholder="Enter Max Price">
+                            		<input class="form-control" id="stockLow" name="priceLow" placeholder="Enter Min Price"><br>
+                                	<button type="submit" class="btn btn-info" name="showTransaction" value="byPrice"><i class="fa fa-search"></i> Search</button>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Reset</button>
+                                </form>
+                                <br><br>
+                                <form id="volumeForm" role="form">
+                                	<input class="form-control" id="vHigh"name="volumeHigh" placeholder="Enter Max Volume">
+                            		<input class="form-control" id="vLow" name="volumeLow" placeholder="Enter Min Volume"><br>
+                            		<button type="submit" class="btn btn-warning" name="showTransaction" value="byVolume"><i class="fa fa-search"></i> Search</button>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Reset</button>
+                                </form>
+                                <br><br>
+                                <form id="statusForm" role="form">
+                                	<input class="form-control" id="stockStatus" name="status" placeholder="Enter Transaction Status"><br>
+                                	<button type="submit" class="btn btn-success" name="showTransaction" value="byStatus"><i class="fa fa-search"></i> Search</button>
+                            		<button type="reset" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Reset</button>
+                                </form>
+                                <br>
+                                
+                         </div>
+                         
+                         
+
                     </div>
                 </div>
                 <!-- /.row -->
