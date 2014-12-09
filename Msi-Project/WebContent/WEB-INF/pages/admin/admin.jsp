@@ -168,7 +168,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="admin.html">Admin</a>
+                <a class="navbar-brand" href="admin.htm">Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -188,9 +188,9 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
+                    <!--  <li>
                         <a ng-click="changePage('manage')"><i class="fa fa-fw fa-dashboard"></i> User Management</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a ng-click="changePage('trans')"><i class="fa fa-fw fa-edit"></i> Make Transaction</a>
                     </li>
@@ -228,7 +228,7 @@
                 <!-- /.row page for management-->
                 
                 <!-- page for transaction -->
-                <div class="row" ng-switch-when="trans" ng-init="getTrans()">
+                <div class="row" ng-switch-when="trans" ng-controller="transController" ng-init="getTrans()">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                         	Transaction
@@ -236,7 +236,7 @@
                     </div>
                     <div class="col-lg-12">
                     	<h2>Uncommitted</h2>
-                    	<button class="btn btn-primary">Commit Transaction</button>
+                    	<button class="btn btn-primary" ng-click="makeTrans()">Commit Transaction</button>
                     	<table class="table table-hover" id="utrans">
                     	<thead><tr>
                     		<th>TID</th>
